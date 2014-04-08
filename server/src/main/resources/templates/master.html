@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico" />
+
+    <title>Starter Template for Bootstrap</title>
+
+    <link rel="stylesheet" href="webjars/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/starter-template.css" />
+
+    <link rel="script" href="webjars/jquery/1.11.0/jquery.min.css" />
+    <link rel="script" href="webjars/bootstrap/3.1.1/js/bootstrap.min.js" />
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">notiDroid</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#" th:text="#{master.menu.dashboard}" /></li>
+                <li><a href="#" th:text="#{master.menu.users}"></a></li>
+                <li><a href="#" th:text="#{master.menu.parameters}" /></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="starter-template">
+        <h1>Bootstrap starter template</h1>
+        <p class="lead">Use this document as a way to quickly start any new project.<br /> All you get is this text and a mostly barebones HTML document.</p>
+    </div>
+
+</div><!-- /.container -->
+
+</body>
+</html>

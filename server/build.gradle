@@ -1,0 +1,62 @@
+buildscript {
+    repositories {
+        maven { url "http://repo.spring.io/libs-snapshot" }
+        mavenLocal()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.0.1.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+jar {
+    baseName = 'notidroid-cloudBackend'
+    version =  '1.0.0-SNAPSHOT'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://repo.spring.io/libs-snapshot" }
+}
+
+dependencies {
+    //We are using Spring Boot to avoid the configuration of a Servlet container
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    //We use Jetty because this is cool
+    compile("org.springframework.boot:spring-boot-starter-jetty")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+
+    //We will use the version 9 of Jetty instead of the 8 included by default with Spring Boot
+    //so we can use WebSocket in our project.
+    compile("org.eclipse.jetty:jetty-continuation:9+")
+    compile("org.eclipse.jetty:jetty-http:9+")
+    compile("org.eclipse.jetty:jetty-io:9+")
+    compile("org.eclipse.jetty:jetty-jsp:9+")
+    compile("org.eclipse.jetty:jetty-security:9+")
+    compile("org.eclipse.jetty:jetty-server:9+")
+    compile("org.eclipse.jetty:jetty-servlet:9+")
+    compile("org.eclipse.jetty:jetty-util:9+")
+    compile("org.eclipse.jetty:jetty-webapp:9+")
+    compile("org.eclipse.jetty:jetty-xml:9+")
+
+    //We are using Spring Data MongoDB to communicate with our database
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+
+    //We are using Thymeleaf for our admin side. The client will be developed using Angular.Dart
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+
+    //We will also use bootstrap 3 to make a nice UI for the admin side
+    compile("org.webjars:jquery:1.11.0")
+    compile("org.webjars:bootstrap:3.1.1")
+
+    //Do not forget to test our code
+    testCompile("junit:junit")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.10'
+}

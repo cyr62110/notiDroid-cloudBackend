@@ -1,0 +1,9 @@
+#IDEA
+*.iml
+\.idea
+
+#Gradle
+build
+
+#Java
+*.class
