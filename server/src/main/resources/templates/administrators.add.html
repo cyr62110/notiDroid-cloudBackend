@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="master">
+<head>
+    <title th:text="#{administrators.add.title}"/>
+</head>
+
+<body>
+
+<div layout:fragment="content" class="container">
+    <div class="page-header">
+        <h1 th:text="#{administrators.add.pageHeader}"/>
+    </div>
+
+    <form role="form" method="post" th:object="${newAdministrator}">
+        <div class="form-group">
+            <label for="firstName" th:text="#{administrators.add.form.firstName}"/>
+            <input type="text" class="form-control" id="firstName" th:field="*{firstName}"
+                   th:placeholder="#{administrators.add.form.firstName.placeholder}"/>
+        </div>
+        <div class="form-group">
+            <label for="lastName" th:text="#{administrators.add.form.lastName}"/>
+            <input type="text" class="form-control" id="lastName" th:field="*{lastName}"
+                   th:placeholder="#{administrators.add.form.lastName.placeholder}"/>
+        </div>
+        <div class="form-group">
+            <label for="email" th:text="#{administrators.add.form.email}"/>
+            <input type="email" class="form-control" id="email" th:field="*{email}"
+                   th:placeholder="#{administrators.add.form.email.placeholder}"/>
+        </div>
+        <div class="form-group">
+            <label for="password" th:text="#{administrators.add.form.password}"/>
+            <input type="password" class="form-control" id="password" th:field="*{password}"/>
+        </div>
+        <button type="submit" class="btn btn-default" th:text="#{administrators.add.form.submit}"/>
+    </form>
+</div>
+
+</body>
+
+</html>
