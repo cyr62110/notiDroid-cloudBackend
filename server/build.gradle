@@ -43,6 +43,11 @@ dependencies {
     compile("org.eclipse.jetty:jetty-webapp:9+")
     compile("org.eclipse.jetty:jetty-xml:9+")
 
+    //We will make this server an Oauth2 provider so we do not require an external provider
+    //So we will use Spring Security Oauth
+    compile("org.springframework.boot:spring-boot-starter-security:1.0.1.RELEASE")
+    compile("org.springframework.security.oauth:spring-security-oauth2:1.0.5.RELEASE")
+
     //We are using Spring Data MongoDB to communicate with our database
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
 
