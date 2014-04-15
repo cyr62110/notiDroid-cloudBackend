@@ -1,4 +1,4 @@
 package fr.cvlaminck.notidroid.cloud.data.entities;
 
-public class Device {
+public class NotificationEntity {
 }

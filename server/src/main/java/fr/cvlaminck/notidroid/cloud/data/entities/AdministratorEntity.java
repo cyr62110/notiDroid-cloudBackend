@@ -8,7 +8,7 @@ import org.springframework.data.annotation.Id;
  * same tasks. An administrator can have the same email and username than a
  * user because they are fully separated.
  */
-public class Administrator {
+public class AdministratorEntity {
 
     @Id
     private String id;
@@ -21,7 +21,7 @@ public class Administrator {
 
     private String password;
 
-    public Administrator() {
+    public AdministratorEntity() {
     }
 
     public String getId() {

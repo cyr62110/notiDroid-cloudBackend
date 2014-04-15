@@ -2,7 +2,7 @@ package fr.cvlaminck.notidroid.cloud.data.entities;
 
 import org.springframework.data.annotation.Id;
 
-public class User {
+public class UserEntity {
 
     @Id
     private String id;

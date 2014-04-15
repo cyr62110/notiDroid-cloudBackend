@@ -1,7 +1,6 @@
 package fr.cvlaminck.notidroid.cloud.controllers.admin;
 
-import fr.cvlaminck.notidroid.cloud.data.entities.Administrator;
-import org.springframework.security.access.annotation.Secured;
+import fr.cvlaminck.notidroid.cloud.data.entities.AdministratorEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,14 +15,13 @@ public class AdministratorController extends MasterController {
 
     }
 
-    @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public ModelAndView formAddNewAdministrator() {
-        return new ModelAndView("administrators.add", "newAdministrator", new Administrator());
+        return new ModelAndView("administrators.add", "newAdministrator", new AdministratorEntity());
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public ModelAndView addNewAdministrator(@ModelAttribute Administrator newAdministrator) {
+    public ModelAndView addNewAdministrator(@ModelAttribute AdministratorEntity newAdministrator) {
         return new ModelAndView("administrators.add", "newAdministrator", newAdministrator);
     }
 

@@ -4,6 +4,7 @@
 
 #Gradle
 build
+\.gradle
 
 #Java
 *.class
