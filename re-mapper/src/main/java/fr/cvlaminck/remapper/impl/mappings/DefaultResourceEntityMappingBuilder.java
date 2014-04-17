@@ -1,7 +1,6 @@
 package fr.cvlaminck.remapper.impl.mappings;
 
 import fr.cvlaminck.remapper.api.mappings.ResourceEntityMapping;
-import fr.cvlaminck.remapper.api.mappings.ResourceEntityMappingBuilder;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -10,8 +9,7 @@ import java.util.Map;
 /**
  * Build the mapping between a resource and an entity.
  */
-public class DefaultResourceEntityMappingBuilder
-    implements ResourceEntityMappingBuilder {
+public class DefaultResourceEntityMappingBuilder {
 
     /**
      * Build a map containing all fields that are contained by the provided type.

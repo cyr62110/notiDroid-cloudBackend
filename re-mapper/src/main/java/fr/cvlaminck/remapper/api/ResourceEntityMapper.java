@@ -1,5 +1,8 @@
 package fr.cvlaminck.remapper.api;
 
+import fr.cvlaminck.remapper.api.cache.ResourceEntityMappingCache;
+import fr.cvlaminck.remapper.api.fieldconverters.FieldConvertersContainer;
+
 /**
  * When you build a REST webservice, you have the resource that you are exposing
  * through this webservice but also your entities that are stored in your database.
@@ -22,6 +25,32 @@ package fr.cvlaminck.remapper.api;
  *
  */
 public interface ResourceEntityMapper {
+
+    /**
+     * Return a object containing all FieldConverters that can be use to map a resource and an
+     * entity. All supported conversions have a FieldConverter in this object.
+     *
+     * @return A FieldConvertersContainer
+     */
+    public FieldConvertersContainer getFieldConvertersContainer();
+
+    /**
+     * Provide a cache to the API so all computed mapping can be stored in order to be
+     * reused if the same mapping is used latter. Providing a cache will help the performance of the
+     * API.
+     *
+     * @param resourceEntityMappingCache A cache where the API can store computed ResourceEntityMapping
+     */
+    public void setResourceEntityMappingCache(ResourceEntityMappingCache resourceEntityMappingCache);
+
+    /**
+     * Compute the mapping between the resource and the entity and store it in the cache.
+     * If no cache has been provided to the API, this function will do nothing.
+     *
+     * @param entity
+     * @param resource
+     */
+    public <E, R> void prepareMapping(Class<E> entity, Class<R> resource);
 
     public <E, R> R convertToResource(E entity, Class<E> entityType, Class<R> resourceType);
 

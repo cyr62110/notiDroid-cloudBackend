@@ -1,6 +1,6 @@
 package fr.cvlaminck.remapper.impl.mappings;
 
-import fr.cvlaminck.remapper.api.fieldcloners.FieldCloner;
+import fr.cvlaminck.remapper.api.fieldconverters.FieldConverter;
 import fr.cvlaminck.remapper.api.mappings.ResourceEntityFieldMapping;
 
 import java.lang.reflect.Field;
@@ -30,16 +30,16 @@ class DefaultResourceEntityFieldMapping
     private Field fieldInEntityType;
 
     /**
-     * FieldCloner that will be use to copy this field
+     * FieldConverter that will be use to copy this field
      * from an instance of class A to an instance of class B.
      */
-    private FieldCloner fieldCloner;
+    private FieldConverter fieldConverter;
 
-    DefaultResourceEntityFieldMapping(String fieldName, Field fieldInResourceType, Field fieldInEntityType, FieldCloner fieldCloner) {
+    DefaultResourceEntityFieldMapping(String fieldName, Field fieldInResourceType, Field fieldInEntityType, FieldConverter fieldConverter) {
         this.fieldName = fieldName;
         this.fieldInResourceType = fieldInResourceType;
         this.fieldInEntityType = fieldInEntityType;
-        this.fieldCloner = fieldCloner;
+        this.fieldConverter = fieldConverter;
     }
 
     public String getFieldName() {
@@ -54,8 +54,8 @@ class DefaultResourceEntityFieldMapping
         return fieldInEntityType;
     }
 
-    public FieldCloner getFieldCloner() {
-        return fieldCloner;
+    public FieldConverter getFieldConverter() {
+        return fieldConverter;
     }
 
     @Override
