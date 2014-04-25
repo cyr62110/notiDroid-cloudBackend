@@ -32,7 +32,7 @@ public abstract class BasicFieldConverter
 
     @Override
     public boolean supports(Class<?> srcType, Class<?> dstType) {
-        return false;
+        return (srcType == dstType);
     }
 
     @Override

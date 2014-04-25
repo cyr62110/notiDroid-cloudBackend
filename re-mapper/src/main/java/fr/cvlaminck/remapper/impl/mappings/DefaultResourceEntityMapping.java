@@ -35,7 +35,7 @@ public class DefaultResourceEntityMapping
      *
      * @param fieldMapping Mapping of the new field.
      */
-    public void addFieldMapping(DefaultResourceEntityFieldMapping fieldMapping) {
+    public void addFieldMapping(ResourceEntityFieldMapping fieldMapping) {
         if(fields.containsKey(fieldMapping.getFieldName()))
             throw new IllegalArgumentException("Field '" + fieldMapping.getFieldName() + "' is already registered in this mapping. Maybe your MappingBuilder is not functioning correctly.");
 

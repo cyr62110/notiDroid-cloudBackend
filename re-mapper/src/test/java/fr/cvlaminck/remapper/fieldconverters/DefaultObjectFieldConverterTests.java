@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 
 import static org.junit.Assert.*;
 
-public class ObjectFieldConverterTests {
+public class DefaultObjectFieldConverterTests {
 
     private final static String STRING_TEST_VALUE = "hello";
 

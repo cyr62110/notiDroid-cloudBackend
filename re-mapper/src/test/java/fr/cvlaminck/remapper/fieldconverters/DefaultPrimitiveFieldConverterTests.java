@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 
 import static org.junit.Assert.*;
 
-public class PrimitiveFieldConverterTests {
+public class DefaultPrimitiveFieldConverterTests {
 
     private static final int INTEGER_TEST_VALUE = 42;
 

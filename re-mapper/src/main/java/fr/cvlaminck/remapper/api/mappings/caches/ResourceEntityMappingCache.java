@@ -1,4 +1,6 @@
-package fr.cvlaminck.remapper.api.mappings;
+package fr.cvlaminck.remapper.api.mappings.caches;
+
+import fr.cvlaminck.remapper.api.mappings.ResourceEntityMapping;
 
 /**
  * Cache that stores mapping between entities and resources so they can be exploited
@@ -7,6 +9,8 @@ package fr.cvlaminck.remapper.api.mappings;
  */
 public interface ResourceEntityMappingCache {
 
-    public ResourceEntityMapping getMappingFor(Class<?> entity, Class<?> resource);
+    public ResourceEntityMapping getMapping(Class<?> entity, Class<?> resource);
+
+    public void store(ResourceEntityMapping resourceEntityMapping);
 
 }

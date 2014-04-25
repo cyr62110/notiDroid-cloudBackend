@@ -1,7 +1,7 @@
 package fr.cvlaminck.remapper.api;
 
-import fr.cvlaminck.remapper.api.cache.ResourceEntityMappingCache;
 import fr.cvlaminck.remapper.api.fieldconverters.FieldConvertersContainer;
+import fr.cvlaminck.remapper.api.mappings.caches.ResourceEntityMappingCache;
 
 /**
  * When you build a REST webservice, you have the resource that you are exposing
@@ -47,10 +47,10 @@ public interface ResourceEntityMapper {
      * Compute the mapping between the resource and the entity and store it in the cache.
      * If no cache has been provided to the API, this function will do nothing.
      *
-     * @param entity
      * @param resource
+     * @param entity
      */
-    public <E, R> void prepareMapping(Class<E> entity, Class<R> resource);
+    public <E, R> void prepareMapping(Class<R> resource, Class<E> entity);
 
     public <E, R> R convertToResource(E entity, Class<E> entityType, Class<R> resourceType);
 

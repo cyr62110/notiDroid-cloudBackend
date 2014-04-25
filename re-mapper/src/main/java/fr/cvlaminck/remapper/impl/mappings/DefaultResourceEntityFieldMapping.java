@@ -59,6 +59,16 @@ class DefaultResourceEntityFieldMapping
     }
 
     @Override
+    public void copyFromResource(Object resource, Object entity) {
+        fieldConverter.convert(resource, fieldInResourceType, entity, fieldInEntityType);
+    }
+
+    @Override
+    public void copyFromEntity(Object entity, Object resource) {
+        fieldConverter.convert(entity, fieldInEntityType, resource, fieldInResourceType);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
