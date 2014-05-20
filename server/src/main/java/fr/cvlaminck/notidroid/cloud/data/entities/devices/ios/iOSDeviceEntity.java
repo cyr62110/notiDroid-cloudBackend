@@ -1,15 +1,12 @@
 package fr.cvlaminck.notidroid.cloud.data.entities.devices.ios;
 
 import fr.cvlaminck.notidroid.cloud.data.entities.devices.DeviceEntity;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.TypeAlias;
 
 /**
  * Information of an iOS device collected through the UIDevice class.
  *
  * @see https://developer.apple.com/library/ios/documentation/uikit/reference/UIDevice_Class/Reference/UIDevice.html
  */
-@TypeAlias("ios")
 public class iOSDeviceEntity extends DeviceEntity {
 
     private String name;

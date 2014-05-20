@@ -18,6 +18,7 @@ public class DashboardController {
 
     /**
      * This function serve the HTML that will be displayed in the user browser
+     *
      * @return The name of the template to use
      */
     @RequestMapping(method = RequestMethod.GET)

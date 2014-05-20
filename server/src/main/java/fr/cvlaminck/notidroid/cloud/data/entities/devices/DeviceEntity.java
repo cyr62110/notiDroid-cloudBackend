@@ -1,20 +1,14 @@
 package fr.cvlaminck.notidroid.cloud.data.entities.devices;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 /**
  * Represents a device that is own by a client.
  * The device can be anything from a laptop or a desktop to a smartphone or a smartwatch.
- *
  */
-@Document(collection = "devices")
 public abstract class DeviceEntity {
 
     /**
      * Identifier of the devices
      */
-    @Id
     private String id;
 
     /**

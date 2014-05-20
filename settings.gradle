@@ -2,3 +2,5 @@ include 'server';
 include 'api';
 include 're-mapper';
 
+include 'neo4j-repository'
+

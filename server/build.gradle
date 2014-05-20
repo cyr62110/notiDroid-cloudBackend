@@ -18,6 +18,7 @@ jar {
 
 repositories {
     mavenCentral()
+    maven { url "http://repo.spring.io/snapshot" }
     maven { url "http://repo.spring.io/libs-snapshot" }
 }
 
@@ -48,8 +49,11 @@ dependencies {
     //compile("org.springframework.boot:spring-boot-starter-security:1.0.1.RELEASE")
     //compile("org.springframework.security.oauth:spring-security-oauth2:1.0.5.RELEASE")
 
-    //We are using Spring Data MongoDB to communicate with our database
-    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    //We use an embedded Neo4J for the storage of user, applications, relations
+    compile ("org.neo4j:neo4j:2.1.+")
+
+    //Storage of notification, images are delegated to a MongoDB and its GridFS
+    //TODO : include mongodb
 
     //We are using Thymeleaf for our admin side. The client will be developed using Angular.Dart
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
@@ -57,6 +61,15 @@ dependencies {
     //We will also use bootstrap 3 to make a nice UI for the admin side
     compile("org.webjars:jquery:1.11.0")
     compile("org.webjars:bootstrap:3.1.1")
+
+    //API and Implementation of the validation API
+    runtime("javax.validation:validation-api:1.0.0.GA")
+    runtime("org.apache.bval:bval-core:0.5")
+    runtime("org.apache.bval:bval-jsr303:0.5")
+
+    compile 'org.apache.commons:commons-lang3:3.3.2'
+
+    compile project(":neo4j-repository")
 
     //Do not forget to test our code
     testCompile("org.springframework.boot:spring-boot-starter-test")

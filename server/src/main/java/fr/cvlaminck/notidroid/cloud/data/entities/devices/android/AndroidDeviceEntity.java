@@ -5,7 +5,7 @@ import fr.cvlaminck.notidroid.cloud.data.entities.devices.DeviceEntity;
 /**
  * All information that we can retrieve on a device from
  * the android.os.Build class.
- *
+ * <p/>
  * TODO: fill this class
  *
  * @see http://developer.android.com/reference/android/os/Build.html
