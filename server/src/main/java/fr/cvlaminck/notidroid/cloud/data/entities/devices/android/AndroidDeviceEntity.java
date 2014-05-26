@@ -1,6 +1,7 @@
 package fr.cvlaminck.notidroid.cloud.data.entities.devices.android;
 
 import fr.cvlaminck.notidroid.cloud.data.entities.devices.DeviceEntity;
+import org.springframework.data.neo4j.annotation.NodeEntity;
 
 /**
  * All information that we can retrieve on a device from
@@ -10,6 +11,7 @@ import fr.cvlaminck.notidroid.cloud.data.entities.devices.DeviceEntity;
  *
  * @see http://developer.android.com/reference/android/os/Build.html
  */
+@NodeEntity
 public class AndroidDeviceEntity extends DeviceEntity {
 
     public String model;

@@ -50,7 +50,7 @@ dependencies {
     //compile("org.springframework.security.oauth:spring-security-oauth2:1.0.5.RELEASE")
 
     //We use an embedded Neo4J for the storage of user, applications, relations
-    compile ("org.neo4j:neo4j:2.1.+")
+    compile ("org.neo4j:neo4j:2.0.+")
 
     //Storage of notification, images are delegated to a MongoDB and its GridFS
     //TODO : include mongodb
@@ -69,7 +69,15 @@ dependencies {
 
     compile 'org.apache.commons:commons-lang3:3.3.2'
 
-    compile project(":neo4j-repository")
+    //Spring data jpa to have spring data cool repository
+    compile 'org.springframework.data:spring-data-neo4j-rest:3.2.0.BUILD-SNAPSHOT'
+
+    //Runtime dependencies for Spring Data Neo4J
+    //Javax WS API
+    runtime 'javax.ws.rs:javax.ws.rs-api:2.0'
+    //Jersey implementation
+    runtime 'com.sun.jersey:jersey-bundle:1.18.1'
+
 
     //Do not forget to test our code
     testCompile("org.springframework.boot:spring-boot-starter-test")

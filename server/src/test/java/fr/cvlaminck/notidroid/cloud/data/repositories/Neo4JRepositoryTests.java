@@ -1,17 +1,19 @@
 package fr.cvlaminck.notidroid.cloud.data.repositories;
 
-import fr.cvlaminck.neo4j.entities.Neo4JEntity;
-import fr.cvlaminck.neo4j.repository.impl.BaseNeo4JRepository;
 import fr.cvlaminck.notidroid.cloud.Application;
+import fr.cvlaminck.notidroid.cloud.data.entities.devices.DeviceEntity;
+import fr.cvlaminck.notidroid.cloud.data.entities.devices.android.AndroidDeviceEntity;
+import fr.cvlaminck.notidroid.cloud.data.entities.users.UserEntity;
+import fr.cvlaminck.notidroid.cloud.data.repositories.devices.DeviceRepository;
+import fr.cvlaminck.notidroid.cloud.data.repositories.users.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Tests for the Neo4JRepository base implementation.
@@ -21,29 +23,33 @@ import static org.junit.Assert.assertNotNull;
 public class Neo4JRepositoryTests {
 
     @Autowired
-    GraphDatabaseService graphDatabaseService;
+    private UserRepository userRepository;
+
+    @Autowired
+    private DeviceRepository deviceRepository;
 
     @Test
-    public void testCreate() throws Exception {
-        TestRepository repository = new TestRepository(graphDatabaseService);
-        TestEntity testEntity = repository.create();
+    public void testTypeSafetyPolicy_deviceIsNotAnUser() throws Exception {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setEmail("An email");
 
-        assertNotNull("Entity must not be null", testEntity);
-        //TODO : assertArrayEquals("Base class name must be used as label of the node", testEntity.get);
+        DeviceEntity deviceEntity = new AndroidDeviceEntity();
+        deviceEntity.setOwnerId("ownerId");
+
+        userRepository.save(userEntity);
+        deviceRepository.save(deviceEntity);
+
+        assertNull(userRepository.findOne(Long.valueOf(deviceEntity.getId())));
     }
 
-    public class TestEntity extends Neo4JEntity {
+    @Test
+    public void testTypeSafetyPolicy_androidDeviceIsADevice() throws Exception {
+        DeviceEntity deviceEntity = new AndroidDeviceEntity();
+        deviceEntity.setOwnerId("ownerId");
 
-        public TestEntity(Node underlyingNode) {
-            super(underlyingNode);
-        }
-    }
+        deviceRepository.save(deviceEntity);
 
-    public class TestRepository extends BaseNeo4JRepository<TestEntity> {
-
-        public TestRepository(GraphDatabaseService graphDatabaseService) {
-            super(TestEntity.class, graphDatabaseService);
-        }
+        assertNotNull(deviceRepository.findOne(Long.valueOf(deviceEntity.getId())));
     }
 
 }

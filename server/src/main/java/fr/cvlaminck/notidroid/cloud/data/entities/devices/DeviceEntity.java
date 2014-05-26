@@ -1,15 +1,20 @@
 package fr.cvlaminck.notidroid.cloud.data.entities.devices;
 
+import org.springframework.data.neo4j.annotation.GraphId;
+import org.springframework.data.neo4j.annotation.NodeEntity;
+
 /**
  * Represents a device that is own by a client.
  * The device can be anything from a laptop or a desktop to a smartphone or a smartwatch.
  */
+@NodeEntity
 public abstract class DeviceEntity {
 
     /**
      * Identifier of the devices
      */
-    private String id;
+    @GraphId
+    private Long id;
 
     /**
      * Id of the owner of this device.
@@ -17,11 +22,11 @@ public abstract class DeviceEntity {
      */
     private String ownerId;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
