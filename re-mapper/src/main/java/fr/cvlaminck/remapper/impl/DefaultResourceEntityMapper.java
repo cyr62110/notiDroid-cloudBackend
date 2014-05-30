@@ -1,11 +1,14 @@
 package fr.cvlaminck.remapper.impl;
 
 import fr.cvlaminck.remapper.api.ResourceEntityMapper;
+import fr.cvlaminck.remapper.api.exceptions.runtime.ResourceOrEntityCannotBeInstantiatedException;
 import fr.cvlaminck.remapper.api.fieldconverters.FieldConvertersContainer;
+import fr.cvlaminck.remapper.api.mappings.ResourceEntityFieldMapping;
 import fr.cvlaminck.remapper.api.mappings.ResourceEntityMapping;
 import fr.cvlaminck.remapper.api.mappings.caches.ResourceEntityMappingCache;
 import fr.cvlaminck.remapper.impl.fieldconverters.DefaultFieldConvertersContainer;
 import fr.cvlaminck.remapper.impl.mappings.DefaultResourceEntityMappingBuilder;
+import org.apache.commons.lang3.reflect.ConstructorUtils;
 
 public class DefaultResourceEntityMapper
    implements ResourceEntityMapper {
@@ -51,12 +54,28 @@ public class DefaultResourceEntityMapper
 
     @Override
     public <E, R> R convertToResource(E entity, Class<E> entityType, Class<R> resourceType) {
-        return null;
+        ResourceEntityMapping mapping = getMapping(resourceType, entityType);
+        R resource = instantiateUsingDefaultConstructor(resourceType);
+        for(ResourceEntityFieldMapping fieldMapping : mapping)
+            fieldMapping.copyFromEntity(entity, resource);
+        return resource;
     }
 
     @Override
-    public <E, R> E convertToEntity(R resource, Class<E> entityType, Class<R> resourceType) {
-        return null;
+    public <E, R> E convertToEntity(R resource, Class<R> resourceType, Class<E> entityType) {
+        ResourceEntityMapping mapping = getMapping(resourceType, entityType);
+        E entity = instantiateUsingDefaultConstructor(entityType);
+        for(ResourceEntityFieldMapping fieldMapping : mapping)
+            fieldMapping.copyFromResource(resource, entity);
+        return entity;
+    }
+
+    private <EoR> EoR instantiateUsingDefaultConstructor(Class<EoR> resourceOrEntityType) {
+        try {
+            return ConstructorUtils.invokeConstructor(resourceOrEntityType);
+        } catch (Exception e) {
+            throw new ResourceOrEntityCannotBeInstantiatedException(resourceOrEntityType, e);
+        }
     }
 
     /**

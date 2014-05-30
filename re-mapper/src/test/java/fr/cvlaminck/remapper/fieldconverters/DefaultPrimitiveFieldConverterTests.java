@@ -1,7 +1,7 @@
 package fr.cvlaminck.remapper.fieldconverters;
 
 import fr.cvlaminck.remapper.impl.fieldconverters.primitive.PrimitiveIntFieldConverter;
-import fr.cvlaminck.remapper.objects.ObjectFullOfPrimitiveFields;
+import fr.cvlaminck.remapper.objects.fieldconverters.ObjectFullOfPrimitiveFields;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Test;
 

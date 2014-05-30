@@ -54,6 +54,6 @@ public interface ResourceEntityMapper {
 
     public <E, R> R convertToResource(E entity, Class<E> entityType, Class<R> resourceType);
 
-    public <E, R> E convertToEntity(R resource, Class<E> entityType, Class<R> resourceType);
+    public <E, R> E convertToEntity(R resource, Class<R> resourceType, Class<E> entityType);
 
 }

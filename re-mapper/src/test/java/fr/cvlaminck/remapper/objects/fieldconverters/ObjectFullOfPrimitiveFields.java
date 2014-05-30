@@ -1,4 +1,4 @@
-package fr.cvlaminck.remapper.objects;
+package fr.cvlaminck.remapper.objects.fieldconverters;
 
 public class ObjectFullOfPrimitiveFields {
 

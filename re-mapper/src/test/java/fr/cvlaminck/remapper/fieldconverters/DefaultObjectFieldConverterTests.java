@@ -2,7 +2,7 @@ package fr.cvlaminck.remapper.fieldconverters;
 
 import fr.cvlaminck.remapper.impl.fieldconverters.BasicFieldConverter;
 import fr.cvlaminck.remapper.impl.fieldconverters.object.StringFieldConverter;
-import fr.cvlaminck.remapper.objects.ObjectFullOfObjectFields;
+import fr.cvlaminck.remapper.objects.fieldconverters.ObjectFullOfObjectFields;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Test;
 
