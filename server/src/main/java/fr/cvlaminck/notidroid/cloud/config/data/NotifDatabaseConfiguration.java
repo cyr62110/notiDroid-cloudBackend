@@ -1,4 +1,4 @@
-package fr.cvlaminck.notidroid.cloud.config;
+package fr.cvlaminck.notidroid.cloud.config.data;
 
 import org.springframework.context.annotation.Configuration;
 

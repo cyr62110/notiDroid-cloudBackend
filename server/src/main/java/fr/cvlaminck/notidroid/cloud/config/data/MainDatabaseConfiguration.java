@@ -1,4 +1,4 @@
-package fr.cvlaminck.notidroid.cloud.config;
+package fr.cvlaminck.notidroid.cloud.config.data;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import org.springframework.transaction.PlatformTransactionManager;
  * that have sent notification through this project, etc...
  */
 @Configuration
-@EnableNeo4jRepositories(basePackages = {"fr.cvlaminck.notidroid.cloud.data.repositories"})
+@EnableNeo4jRepositories(basePackages = {"fr.cvlaminck.notidroid.cloud.data"})
 public class MainDatabaseConfiguration {
 
     @Bean

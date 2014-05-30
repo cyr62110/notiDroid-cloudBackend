@@ -1,4 +1,4 @@
-package fr.cvlaminck.notidroid.cloud.controllers.admin;
+package fr.cvlaminck.notidroid.cloud.front.admin.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

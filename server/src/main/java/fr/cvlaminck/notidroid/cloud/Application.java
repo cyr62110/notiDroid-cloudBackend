@@ -1,8 +1,11 @@
 package fr.cvlaminck.notidroid.cloud;
 
-import fr.cvlaminck.notidroid.cloud.config.MainDatabaseConfiguration;
-import fr.cvlaminck.notidroid.cloud.config.NotifDatabaseConfiguration;
+import fr.cvlaminck.notidroid.cloud.config.data.MainDatabaseConfiguration;
+import fr.cvlaminck.notidroid.cloud.config.data.NotifDatabaseConfiguration;
+import fr.cvlaminck.notidroid.cloud.config.security.AdminSecurityConfiguration;
+import fr.cvlaminck.notidroid.cloud.config.security.AuthorizationServerConfiguration;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
@@ -16,7 +19,10 @@ import org.springframework.context.annotation.Import;
 @ComponentScan
 @Import({
         MainDatabaseConfiguration.class,
-        NotifDatabaseConfiguration.class})
+        NotifDatabaseConfiguration.class,
+        AuthorizationServerConfiguration.class,
+        AdminSecurityConfiguration.class})
+@EnableAutoConfiguration
 public class Application {
 
     public static void main(String[] args) {

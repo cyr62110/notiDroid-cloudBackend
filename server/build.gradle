@@ -58,6 +58,9 @@ dependencies {
     //We are using Thymeleaf for our admin side. The client will be developed using Angular.Dart
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 
+    //With spring security for authentication on both side
+    compile 'org.springframework.security.oauth:spring-security-oauth2:2.0.1.RELEASE'
+
     //We will also use bootstrap 3 to make a nice UI for the admin side
     compile("org.webjars:jquery:1.11.0")
     compile("org.webjars:bootstrap:3.1.1")
@@ -70,7 +73,7 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.3.2'
 
     //Spring data jpa to have spring data cool repository
-    compile 'org.springframework.data:spring-data-neo4j-rest:3.2.0.BUILD-SNAPSHOT'
+    compile 'org.springframework.data:spring-data-neo4j-rest:3.1.0.RELEASE'
 
     //Runtime dependencies for Spring Data Neo4J
     //Javax WS API
@@ -78,6 +81,11 @@ dependencies {
     //Jersey implementation
     runtime 'com.sun.jersey:jersey-bundle:1.18.1'
 
+    //Commons-Lang3 utility library cause im lazy
+    compile 'org.apache.commons:commons-lang3:3.3.2'
+
+    //Commons-Validator to validate email addresses and more
+    compile 'commons-validator:commons-validator:1.4.0'
 
     //Do not forget to test our code
     testCompile("org.springframework.boot:spring-boot-starter-test")

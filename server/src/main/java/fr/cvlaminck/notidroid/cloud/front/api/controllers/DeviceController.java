@@ -1,4 +1,4 @@
-package fr.cvlaminck.notidroid.cloud.controllers.rest;
+package fr.cvlaminck.notidroid.cloud.front.api.controllers;
 
 /**
  * Created by A575681 on 10/04/14.
