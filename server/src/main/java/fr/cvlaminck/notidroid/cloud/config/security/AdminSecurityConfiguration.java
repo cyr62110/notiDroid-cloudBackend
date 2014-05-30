@@ -1,12 +1,19 @@
 package fr.cvlaminck.notidroid.cloud.config.security;
 
+import fr.cvlaminck.notidroid.cloud.core.security.NotidroidUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 /**
  * Configuration of Spring Security for the administration side.
@@ -14,14 +21,29 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
  */
 @Configuration
 @EnableWebMvcSecurity
+//@EnableResourceServer
 public class AdminSecurityConfiguration
-    extends WebSecurityConfigurerAdapter {
+        extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    NotidroidUserDetailsService notidroidUserDetailsService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    /*@Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        //We use our own UserDetailsService build upon our Neo4J database that contains User and Administrators
+        auth.userDetailsService(notidroidUserDetailsService)
+                .passwordEncoder(passwordEncoder);
+    }*/
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //We use an inMemoryAuthentication for now, will be replaced by a proper UserService working on Neo4J
-        auth.inMemoryAuthentication()
-                .withUser("admin@notidroid.fr").password("admin").roles("ADMINISTRATOR");
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return this.authenticationManager;
     }
 
     @Override
@@ -32,23 +54,32 @@ public class AdminSecurityConfiguration
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-            .antMatcher("/admin/**") //This security filter only apply on the administration side of the project
+        http /*
             .authorizeRequests()
-                //We configure here our URLs that will be protected and the role that must have the user in its UserDetails
-                //to access the page.
-                //.antMatchers("/admin/sign-in").permitAll()
-                .antMatchers("/admin/administrators/create-first-admin").permitAll() //The page to create the first administrator must be allowed for all.
-                .regexMatchers("/admin/?.*").hasRole("ADMINISTRATOR") //The user must be logged in as an administrator to access the console.
-                //TODO : Add special roles for each task
+                //We permit all request on OAuth so user can retrieve their token
+                .antMatchers("/oauth/token").permitAll()
+                //TODO : add other Oauth point
         .and()
-                //We configure our sign-in page for administrators.
+            .authorizeRequests()
+                //Almost all api request require the user to be authenticated and have a valid OAuth2 access token
+                .antMatchers("/api/users").permitAll() //User registration do not require to be an authenticated user.
+                .antMatchers("/api/**").access("#oauth2.clientHasRole('ROLE_CLIENT')") //All users can access all the api, so one mapping is enough for the rest of the API.
+        .and() */
+            .authorizeRequests()
+            //We configure here our Administration URLs that will be protected and the role that must have the user in its UserDetails
+            //to access the page.
+            .antMatchers("/admin/administrators/create-first-admin").permitAll() //The page to create the first administrator must be allowed for all.
+            //TODO : Add special roles for each task
+            .regexMatchers("/admin/?.*").hasRole("ADMINISTRATOR") //The user must be logged in as an administrator to access the console.
+        .and()
+                    //We configure our sign-in page for administrators.
             .formLogin()
                 .loginPage("/admin/log-in")
                 .usernameParameter("txtEmail")
                 .passwordParameter("txtPassword")
                 .defaultSuccessUrl("/admin") //When an admin is authenticated, we show him its dashboard
-                .failureUrl("/admin/log-in?failed")
-                .permitAll(); //Everybody can access the sign-in page, looks logic for me.
+                .failureUrl("/admin/log-in")
+                .failureUrl("/admin/log-in")
+                .permitAll(); //Everybody can access the login page, looks logic for me.
     }
 }

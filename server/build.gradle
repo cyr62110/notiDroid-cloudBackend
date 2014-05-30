@@ -43,6 +43,7 @@ dependencies {
     compile("org.eclipse.jetty:jetty-util:9+")
     compile("org.eclipse.jetty:jetty-webapp:9+")
     compile("org.eclipse.jetty:jetty-xml:9+")
+    compile("org.eclipse.jetty:jetty-annotations:9+")
 
     //We will make this server an Oauth2 provider so we do not require an external provider
     //So we will use Spring Security Oauth
@@ -86,6 +87,15 @@ dependencies {
 
     //Commons-Validator to validate email addresses and more
     compile 'commons-validator:commons-validator:1.4.0'
+
+    //Commons-Codec for Base64 and other encoding
+    compile 'commons-codec:commons-codec:1.9'
+
+    //Do not forget to link with our java client api
+    compile project(':api')
+
+    //Then we use the re-mapper to convert entities in resources and resources in entities
+    compile project(':re-mapper')
 
     //Do not forget to test our code
     testCompile("org.springframework.boot:spring-boot-starter-test")

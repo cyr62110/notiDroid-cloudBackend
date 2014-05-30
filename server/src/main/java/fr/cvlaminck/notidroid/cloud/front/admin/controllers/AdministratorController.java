@@ -51,8 +51,18 @@ public class AdministratorController
         //return new ModelAndView("administrators.add", "newAdministrator", newAdministrator);
     }
 
+    /**
+     * Page that will create the first administrator will all permissions
+     * If there is already an administrator in the system, redirect the administrator to the
+     * dashboard.
+     */
     @RequestMapping(value = "create-first-admin", method = RequestMethod.POST)
     public ModelAndView createFirstAdministrator(@ModelAttribute AdministratorEntity administratorEntity) {
+        //If there is already an administrator in the database, redirect the user to the dashboard
+        if(administratorManager.hasAtLeastOneAdministrator()) {
+            return new ModelAndView("redirect:/admin");
+        }
+
         final Map<String, Object> model = new HashMap<String, Object>();
         model.put("newAdministrator", new AdministratorEntity());
         model.put("giveAllPermissions", Boolean.valueOf(false));
@@ -66,8 +76,18 @@ public class AdministratorController
         return new ModelAndView("administrators.create", model);
     }
 
+    /**
+     * Page that will create the first administrator will all permissions
+     * If there is already an administrator in the system, redirect the administrator to the
+     * dashboard.
+     */
     @RequestMapping(value = "create-first-admin", method = RequestMethod.GET)
     public ModelAndView formCreateFirstAdministrator() {
+        //If there is already an administrator in the database, redirect the user to the dashboard
+        if(administratorManager.hasAtLeastOneAdministrator()) {
+            return new ModelAndView("redirect:/admin");
+        }
+
         final Map<String, Object> model = new HashMap<String, Object>();
         model.put("newAdministrator", new AdministratorEntity());
         model.put("giveAllPermissions", Boolean.valueOf(false));

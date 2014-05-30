@@ -23,7 +23,7 @@ public class NotidroidUserDetailsService
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //First, we are looking after our user
-        UserEntity user = null;//userRepository.findByEmail(username);
+        UserEntity user = userRepository.findByEmail(username);
         if (user == null)
             throw new UsernameNotFoundException("No user registered with this email address '" + username + "'");
 

@@ -18,7 +18,7 @@ public interface UserRepository extends GraphRepository<UserEntity> {
      * @param email Email of the user where are looking after
      * @return An user or null if the user do not exists.
      */
-    //public UserEntity findByEmail(String email);
+    public UserEntity findByEmail(String email);
 
     /**
      * Number of administrator already registered

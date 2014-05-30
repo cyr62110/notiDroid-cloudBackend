@@ -1,6 +1,6 @@
 package fr.cvlaminck.remapper.fieldconverters;
 
-import fr.cvlaminck.remapper.impl.fieldconverters.primitive.PrimitiveIntFieldConverter;
+import fr.cvlaminck.remapper.impl.fieldconverters.primitive.PrimitiveFieldConverter;
 import fr.cvlaminck.remapper.objects.fieldconverters.ObjectFullOfPrimitiveFields;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Test;
@@ -15,7 +15,7 @@ public class DefaultPrimitiveFieldConverterTests {
 
     @Test
     public void testShouldConvertPrimitiveInteger() throws Exception {
-        PrimitiveIntFieldConverter converter = new PrimitiveIntFieldConverter();
+        PrimitiveFieldConverter converter = PrimitiveFieldConverter.buildFor(int.class);
 
         ObjectFullOfPrimitiveFields object = new ObjectFullOfPrimitiveFields();
         Field srcField = FieldUtils.getField(ObjectFullOfPrimitiveFields.class, "primitiveIntSrc", true);
