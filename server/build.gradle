@@ -1,19 +1,12 @@
-buildscript {
-    repositories {
-        maven { url "http://repo.spring.io/libs-snapshot" }
-        mavenLocal()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.0.1.RELEASE")
-    }
-}
-
 apply plugin: 'java'
-apply plugin: 'spring-boot'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 jar {
     baseName = 'notidroid-cloudBackend'
-    version =  '1.0.0-SNAPSHOT'
+    version = '1.0.0-SNAPSHOT'
 }
 
 repositories {
@@ -23,41 +16,25 @@ repositories {
 }
 
 dependencies {
-    //We are using Spring Boot to avoid the configuration of a Servlet container
-    compile("org.springframework.boot:spring-boot-starter-web") {
-        exclude module: "spring-boot-starter-tomcat"
-    }
-    //We use Jetty because this is cool
-    compile("org.springframework.boot:spring-boot-starter-jetty")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
+    //We will run our project on a servlet container
+    compile 'javax.servlet:javax.servlet-api:3.1.0'
 
-    //We will use the version 9 of Jetty instead of the 8 included by default with Spring Boot
-    //so we can use WebSocket in our project.
-    compile("org.eclipse.jetty:jetty-continuation:9+")
-    compile("org.eclipse.jetty:jetty-http:9+")
-    compile("org.eclipse.jetty:jetty-io:9+")
-    compile("org.eclipse.jetty:jetty-jsp:9+")
-    compile("org.eclipse.jetty:jetty-security:9+")
-    compile("org.eclipse.jetty:jetty-server:9+")
-    compile("org.eclipse.jetty:jetty-servlet:9+")
-    compile("org.eclipse.jetty:jetty-util:9+")
-    compile("org.eclipse.jetty:jetty-webapp:9+")
-    compile("org.eclipse.jetty:jetty-xml:9+")
-    compile("org.eclipse.jetty:jetty-annotations:9+")
+    //We use the Spring Framework as the core of our service
+    compile 'org.springframework:spring-core:4.0.5.RELEASE'
 
-    //We will make this server an Oauth2 provider so we do not require an external provider
-    //So we will use Spring Security Oauth
-    //compile("org.springframework.boot:spring-boot-starter-security:1.0.1.RELEASE")
-    //compile("org.springframework.security.oauth:spring-security-oauth2:1.0.5.RELEASE")
+    //Spring MVC for the REST interface and the admin UI
+    compile 'org.springframework:spring-webmvc:4.0.5.RELEASE'
+
+    //We are using Thymeleaf for our admin side. The client will be developed using Angular.Dart
+    //We add also a dialect that will allow us to build master page with Thymeleaf
+    compile 'org.thymeleaf:thymeleaf-spring4:2.1.3.RELEASE'
+    compile 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:1.2.4'
 
     //We use an embedded Neo4J for the storage of user, applications, relations
-    compile ("org.neo4j:neo4j:2.0.+")
+    compile("org.neo4j:neo4j:2.0.+")
 
     //Storage of notification, images are delegated to a MongoDB and its GridFS
     //TODO : include mongodb
-
-    //We are using Thymeleaf for our admin side. The client will be developed using Angular.Dart
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 
     //With spring security for authentication on both side
     compile 'org.springframework.security.oauth:spring-security-oauth2:2.0.1.RELEASE'
@@ -67,9 +44,9 @@ dependencies {
     compile("org.webjars:bootstrap:3.1.1")
 
     //API and Implementation of the validation API
-    runtime("javax.validation:validation-api:1.0.0.GA")
-    runtime("org.apache.bval:bval-core:0.5")
-    runtime("org.apache.bval:bval-jsr303:0.5")
+    runtime 'javax.validation:validation-api:1.0.0.GA'
+    runtime 'org.apache.bval:bval-core:0.5'
+    runtime 'org.apache.bval:bval-jsr303:0.5'
 
     compile 'org.apache.commons:commons-lang3:3.3.2'
 
@@ -88,17 +65,18 @@ dependencies {
     //Commons-Validator to validate email addresses and more
     compile 'commons-validator:commons-validator:1.4.0'
 
-    //Commons-Codec for Base64 and other encoding
-    compile 'commons-codec:commons-codec:1.9'
+    //Some librairies used for logging purpose
+    compile 'org.slf4j:slf4j-api:1.7.7'
+    runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.0-rc1'
+    runtime 'org.apache.logging.log4j:log4j:2.0-rc1'
 
-    //Do not forget to link with our java client api
+    //Do not forget to test our code with JUnit
+    testCompile 'org.springframework:spring-test:4.0.5.RELEASE'
+    testCompile 'junit:junit:4.11'
+
     compile project(':api')
-
-    //Then we use the re-mapper to convert entities in resources and resources in entities
     compile project(':re-mapper')
 
-    //Do not forget to test our code
-    testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
 task wrapper(type: Wrapper) {

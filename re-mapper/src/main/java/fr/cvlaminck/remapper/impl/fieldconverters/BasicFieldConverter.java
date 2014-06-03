@@ -12,7 +12,7 @@ import java.lang.reflect.Field;
  * copy of the source value before applying it to the destination.
  */
 public abstract class BasicFieldConverter
-    implements FieldConverter {
+        implements FieldConverter {
 
     private Class<?> convertedType = null;
 

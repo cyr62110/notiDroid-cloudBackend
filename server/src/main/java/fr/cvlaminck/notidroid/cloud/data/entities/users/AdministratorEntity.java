@@ -10,7 +10,7 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
  */
 @NodeEntity
 public class AdministratorEntity
-    extends UserEntity {
+        extends UserEntity {
 
     /**
      * Permissions determine which kind of information can be viewed/modified by

@@ -23,24 +23,24 @@ public class UserInformationUtils {
 
     public static void validateUserInformation(UserEntity user) throws IncompleteUserInformationException, InvalidEmailFormatException {
         //First, we check if we have everything to create our administrator
-        if(StringUtils.isBlank(user.getEmail()))
+        if (StringUtils.isBlank(user.getEmail()))
             throw new IncompleteUserInformationException();
-        if(StringUtils.isBlank(user.getFirstName()))
+        if (StringUtils.isBlank(user.getFirstName()))
             throw new IncompleteUserInformationException();
-        if(StringUtils.isBlank(user.getLastName()))
+        if (StringUtils.isBlank(user.getLastName()))
             throw new IncompleteUserInformationException();
-        if(StringUtils.isBlank(user.getPassword()))
+        if (StringUtils.isBlank(user.getPassword()))
             throw new IncompleteUserInformationException();
 
         EmailValidator emailValidator = EmailValidator.getInstance(false);
-        if(!emailValidator.isValid(user.getEmail()))
+        if (!emailValidator.isValid(user.getEmail()))
             throw new InvalidEmailFormatException();
 
     }
 
     public static void validateEmailNotUsed(UserEntity user, UserRepository userRepository) throws ExistingUserWithEmailException {
         UserEntity existingUserWithEmail = userRepository.findByEmail(user.getEmail());
-        if(existingUserWithEmail != null) {
+        if (existingUserWithEmail != null) {
             throw new ExistingUserWithEmailException();
         }
     }

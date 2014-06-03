@@ -7,18 +7,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.oauth2.provider.ClientDetails;
 
-import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 /**
  * ClientDetails representation of a notidroid user.
  * Used by Spring Security OAuth2.
- *
+ * <p>
  * Since Oauth2 is only used on the client side REST API, all user have the same
  * rights.
  */
 public class NotidroidClientDetails
-    implements ClientDetails {
+        implements ClientDetails {
 
     private static Base64 base64 = new Base64(true);
 
@@ -82,7 +81,7 @@ public class NotidroidClientDetails
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
-        if(this.authorities == null) {
+        if (this.authorities == null) {
             LinkedList<GrantedAuthority> authorities = new LinkedList<GrantedAuthority>();
             //All user has at least the USER role to access the api
             authorities.add(new GrantedAuthorityImpl("ROLE_USER"));

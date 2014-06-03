@@ -9,8 +9,6 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.ClientRegistrationException;
 import org.springframework.stereotype.Component;
 
-import java.io.UnsupportedEncodingException;
-
 /**
  * Components required by Spring security that convert information about
  * user retrieved in the Neo4J database in a representation usable by
@@ -18,7 +16,7 @@ import java.io.UnsupportedEncodingException;
  */
 @Component
 public class NotidroidClientDetailsService
-    implements ClientDetailsService {
+        implements ClientDetailsService {
 
     private Base64 base64 = new Base64(true);
 
@@ -27,12 +25,12 @@ public class NotidroidClientDetailsService
 
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
-        if(clientId == null)
+        if (clientId == null)
             throw new ClientRegistrationException("clientId query parameter is mandatory");
         //We need to decode the client id before trying to retrieve our user in the database
         //clientId is user email encoded using Base64URL.
         UserEntity user = userRepository.findByEmail(clientId);
-        if(user == null)
+        if (user == null)
             throw new ClientRegistrationException("User with client id '" + clientId + "' is not registered");
 
         return new NotidroidClientDetails(user);

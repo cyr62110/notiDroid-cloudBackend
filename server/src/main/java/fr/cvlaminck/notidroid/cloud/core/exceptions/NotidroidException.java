@@ -1,7 +1,6 @@
 package fr.cvlaminck.notidroid.cloud.core.exceptions;
 
 import org.springframework.context.MessageSource;
-import org.springframework.web.servlet.LocaleResolver;
 
 import java.util.Locale;
 
@@ -38,7 +37,7 @@ public class NotidroidException extends Exception {
     }
 
     public String getMessage(MessageSource messageSource, Locale locale) {
-        if(i18NMessageId == null)
+        if (i18NMessageId == null)
             return getMessage();
         else
             return messageSource.getMessage(i18NMessageId, null, getMessage(), locale);

@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
  * if they are of a supported type and have the same type.
  */
 class DefaultResourceEntityFieldMapping
-    implements ResourceEntityFieldMapping {
+        implements ResourceEntityFieldMapping {
 
     /**
      * Name of the field in both class

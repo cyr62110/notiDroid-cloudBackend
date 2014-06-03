@@ -1,6 +1,5 @@
 package fr.cvlaminck.remapper.impl.mappings;
 
-import fr.cvlaminck.remapper.api.ResourceEntityMapper;
 import fr.cvlaminck.remapper.api.mappings.ResourceEntityFieldMapping;
 import fr.cvlaminck.remapper.api.mappings.ResourceEntityMapping;
 
@@ -12,7 +11,7 @@ import java.util.Map;
  * Mapping between a resource and an entity.
  */
 public class DefaultResourceEntityMapping
-    implements ResourceEntityMapping {
+        implements ResourceEntityMapping {
 
     private Class<?> resourceType;
 
@@ -36,14 +35,14 @@ public class DefaultResourceEntityMapping
      * @param fieldMapping Mapping of the new field.
      */
     public void addFieldMapping(ResourceEntityFieldMapping fieldMapping) {
-        if(fields.containsKey(fieldMapping.getFieldName()))
+        if (fields.containsKey(fieldMapping.getFieldName()))
             throw new IllegalArgumentException("Field '" + fieldMapping.getFieldName() + "' is already registered in this mapping. Maybe your MappingBuilder is not functioning correctly.");
 
         fields.put(fieldMapping.getFieldName(), fieldMapping);
     }
 
     public ResourceEntityFieldMapping getFieldMappingByName(String fieldName) {
-        if(!fields.containsKey(fieldName))
+        if (!fields.containsKey(fieldName))
             throw new IllegalArgumentException("Field '" + fieldName + "' is not registered in this mapping. Maybe does it not belong to this mapping or is it not mappable");
         return fields.get(fieldName);
     }

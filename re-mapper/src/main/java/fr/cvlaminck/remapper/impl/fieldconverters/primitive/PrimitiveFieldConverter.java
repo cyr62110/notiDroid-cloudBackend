@@ -4,7 +4,7 @@ import fr.cvlaminck.remapper.impl.fieldconverters.BasicFieldConverter;
 import org.apache.commons.lang3.ArrayUtils;
 
 public class PrimitiveFieldConverter
-    extends BasicFieldConverter {
+        extends BasicFieldConverter {
 
     public static final Class<?>[] JAVA_PRIMITIVE_TYPES = new Class<?>[]{
             char.class,
@@ -26,7 +26,7 @@ public class PrimitiveFieldConverter
      * @return a field converter that can copy the primitive type.
      */
     public static PrimitiveFieldConverter buildFor(Class<?> convertedPrimitiveType) {
-        if(!ArrayUtils.contains(JAVA_PRIMITIVE_TYPES, convertedPrimitiveType))
+        if (!ArrayUtils.contains(JAVA_PRIMITIVE_TYPES, convertedPrimitiveType))
             throw new IllegalArgumentException(convertedPrimitiveType.getSimpleName() + " is not a primitive types. Only primitive types are supported by this converter.");
         return new PrimitiveFieldConverter(convertedPrimitiveType);
     }

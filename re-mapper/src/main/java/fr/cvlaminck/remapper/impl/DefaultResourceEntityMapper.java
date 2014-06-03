@@ -11,7 +11,7 @@ import fr.cvlaminck.remapper.impl.mappings.DefaultResourceEntityMappingBuilder;
 import org.apache.commons.lang3.reflect.ConstructorUtils;
 
 public class DefaultResourceEntityMapper
-   implements ResourceEntityMapper {
+        implements ResourceEntityMapper {
 
     /**
      * Container of all field converters that can be use to map the data.
@@ -48,7 +48,7 @@ public class DefaultResourceEntityMapper
 
     @Override
     public <E, R> void prepareMapping(Class<R> resource, Class<E> entity) {
-        if(resourceEntityMappingCache != null)
+        if (resourceEntityMappingCache != null)
             getMapping(resource, entity);
     }
 
@@ -56,7 +56,7 @@ public class DefaultResourceEntityMapper
     public <E, R> R convertToResource(E entity, Class<E> entityType, Class<R> resourceType) {
         ResourceEntityMapping mapping = getMapping(resourceType, entityType);
         R resource = instantiateUsingDefaultConstructor(resourceType);
-        for(ResourceEntityFieldMapping fieldMapping : mapping)
+        for (ResourceEntityFieldMapping fieldMapping : mapping)
             fieldMapping.copyFromEntity(entity, resource);
         return resource;
     }
@@ -65,7 +65,7 @@ public class DefaultResourceEntityMapper
     public <E, R> E convertToEntity(R resource, Class<R> resourceType, Class<E> entityType) {
         ResourceEntityMapping mapping = getMapping(resourceType, entityType);
         E entity = instantiateUsingDefaultConstructor(entityType);
-        for(ResourceEntityFieldMapping fieldMapping : mapping)
+        for (ResourceEntityFieldMapping fieldMapping : mapping)
             fieldMapping.copyFromResource(resource, entity);
         return entity;
     }
@@ -94,10 +94,10 @@ public class DefaultResourceEntityMapper
         ResourceEntityMapping resourceEntityMapping = (resourceEntityMappingCache != null) ?
                 resourceEntityMappingCache.getMapping(entity, resource) : null;
         //If not, we build a new one
-        if(resourceEntityMapping == null)
+        if (resourceEntityMapping == null)
             resourceEntityMapping = resourceEntityMappingBuilder.buildMapping(resource, entity);
         //And store it in cache, if available
-        if(resourceEntityMappingCache != null) resourceEntityMappingCache.store(resourceEntityMapping);
+        if (resourceEntityMappingCache != null) resourceEntityMappingCache.store(resourceEntityMapping);
         return resourceEntityMapping;
     }
 }

@@ -5,7 +5,7 @@ package fr.cvlaminck.notidroid.cloud.api.users;
  * Send by a client to the server to create an account for this user.
  */
 public class UserWithCredentialsResource
-    extends UserResource {
+        extends UserResource {
 
     /**
      * New password for this user

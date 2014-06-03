@@ -12,9 +12,9 @@ public class PrimitiveFieldConverters {
     private static ArrayList<FieldConverter> primitiveFieldConverters = null;
 
     public static ArrayList<FieldConverter> get() {
-        if(primitiveFieldConverters == null) {
-            primitiveFieldConverters = new ArrayList<>(PrimitiveFieldConverter.JAVA_PRIMITIVE_TYPES.length);
-            for(Class<?> primitiveType : PrimitiveFieldConverter.JAVA_PRIMITIVE_TYPES)
+        if (primitiveFieldConverters == null) {
+            primitiveFieldConverters = new ArrayList<FieldConverter>(PrimitiveFieldConverter.JAVA_PRIMITIVE_TYPES.length);
+            for (Class<?> primitiveType : PrimitiveFieldConverter.JAVA_PRIMITIVE_TYPES)
                 primitiveFieldConverters.add(PrimitiveFieldConverter.buildFor(primitiveType));
         }
         return primitiveFieldConverters;

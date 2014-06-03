@@ -12,9 +12,9 @@ import java.util.LinkedList;
 /**
  * UserDetails representation of notidroid user.
  * Used by Spring Security.
-*/
+ */
 public class NotidroidUserDetails
-    implements UserDetails {
+        implements UserDetails {
 
     private UserEntity userEntity = null;
 
@@ -26,13 +26,13 @@ public class NotidroidUserDetails
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(authorities == null) {
+        if (authorities == null) {
             LinkedList<GrantedAuthorityImpl> authorities = new LinkedList<GrantedAuthorityImpl>();
             //All user has at least the USER role to access the api
             authorities.add(new GrantedAuthorityImpl("ROLE_USER"));
             //Then if the user is an administrator, we will add the ADMINISTRATOR role and
             //all permissions that we have granted to him
-            if(userEntity instanceof AdministratorEntity) {
+            if (userEntity instanceof AdministratorEntity) {
                 authorities.add(new GrantedAuthorityImpl("ROLE_ADMINISTRATOR"));
                 //TODO : add all permissions
             }

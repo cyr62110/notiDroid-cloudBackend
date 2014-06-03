@@ -3,7 +3,7 @@ package fr.cvlaminck.remapper.impl.fieldconverters.object;
 import fr.cvlaminck.remapper.impl.fieldconverters.BasicFieldConverter;
 
 public class StringFieldConverter
-    extends BasicFieldConverter {
+        extends BasicFieldConverter {
 
     public StringFieldConverter() {
         super(String.class);

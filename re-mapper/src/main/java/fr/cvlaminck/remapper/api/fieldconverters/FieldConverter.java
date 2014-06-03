@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
  * the resource, so we need to handle the conversion from one to another. This is what this
  * class is meant for, copying from one to another and converting the value if it is required.
  * One example of conversion is boxing/unboxing of primitive type.
- *
+ * <p>
  * Field in A and B classes must be of the type that is supported by the FieldConverter.
  */
 public interface FieldConverter {

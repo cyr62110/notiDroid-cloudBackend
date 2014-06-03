@@ -20,18 +20,26 @@ public class APISecurityConfiguration {
 
     public static final String NOTIDROID_RESSOURCE_ID = "notidroid";
 
-    /*
     @Configuration
-
+    @EnableResourceServer
     public static class ResourceServerConfiguration
             extends ResourceServerConfigurerAdapter {
 
         @Override
         public void configure(HttpSecurity http) throws Exception {
-
+            http
+                .antMatcher("/api/**")
+                .authorizeRequests()
+                    //We permit all request on OAuth so user can retrieve their token
+                    .antMatchers("/oauth/token").permitAll()
+                    //TODO : add other Oauth point
+            .and()
+                .authorizeRequests()
+                            //Almost all api request require the user to be authenticated and have a valid OAuth2 access token
+                    .antMatchers("/api/users").permitAll() //User registration do not require to be an authenticated user.
+                    .antMatchers("/api/**").access("#oauth2.clientHasRole('ROLE_CLIENT')"); //All users can access all the api, so one mapping is enough for the rest of the API.
         }
     }
-    */
 
     @Configuration
     @EnableAuthorizationServer

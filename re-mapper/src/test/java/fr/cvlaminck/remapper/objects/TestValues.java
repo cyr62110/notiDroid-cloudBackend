@@ -2,7 +2,8 @@ package fr.cvlaminck.remapper.objects;
 
 public final class TestValues {
 
-    private TestValues() {}
+    private TestValues() {
+    }
 
     public final static int INT = 42;
 

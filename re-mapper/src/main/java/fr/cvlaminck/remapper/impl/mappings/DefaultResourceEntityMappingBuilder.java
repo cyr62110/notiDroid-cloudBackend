@@ -32,8 +32,8 @@ public class DefaultResourceEntityMappingBuilder {
     private Map<String, Field> getFieldsInType(Class<?> type) {
         Map<String, Field> fieldsInType = new HashMap<String, Field>();
         //We retrieve all fields declared in the type but also in its super types.
-        Field[] fields =  type.getFields();
-        for(Field field : fields) {
+        Field[] fields = type.getFields();
+        for (Field field : fields) {
             fieldsInType.put(field.getName(), field);
         }
         return fieldsInType;
@@ -44,7 +44,7 @@ public class DefaultResourceEntityMappingBuilder {
      * types.
      *
      * @param resourceType Resource type
-     * @param entityType Entity type
+     * @param entityType   Entity type
      * @return The mapping between the entity type and the resource type
      */
     public ResourceEntityMapping buildMapping(Class<?> resourceType, Class<?> entityType) {
@@ -54,13 +54,13 @@ public class DefaultResourceEntityMappingBuilder {
         Map<String, Field> fieldsInResourceType = getFieldsInType(resourceType);
         //Since we are doing one to one mapping, we do not care about the map on which we will iterate.
         //If a field is not in both types, it will not be mapped.
-        for(Field entityField : fieldsInEntityType.values()) {
+        for (Field entityField : fieldsInEntityType.values()) {
             //We need to find a field in the resource with the same name
             Field resourceField = fieldsInResourceType.get(entityField.getName());
             //If we have found one
-            if(resourceField != null) {
+            if (resourceField != null) {
                 ResourceEntityFieldMapping resourceEntityFieldMapping = buildFieldMapping(entityField, resourceField);
-                if(resourceEntityFieldMapping != null)
+                if (resourceEntityFieldMapping != null)
                     resourceEntityMapping.addFieldMapping(resourceEntityFieldMapping);
             }
         }
@@ -77,11 +77,11 @@ public class DefaultResourceEntityMappingBuilder {
      * @return a mapping or null
      */
     private ResourceEntityFieldMapping buildFieldMapping(Field entityField, Field resourceField) {
-        if(entityField == null || resourceField == null)
+        if (entityField == null || resourceField == null)
             return null;
         //We check if the type of the field is supported by the ResourceEntityMapper
         FieldConverter fieldConverter = fieldConvertersContainer.getConverterFor(entityField.getType(), resourceField.getType());
-        if(fieldConverter == null)
+        if (fieldConverter == null)
             return null;
         return new DefaultResourceEntityFieldMapping(
                 entityField.getName(),

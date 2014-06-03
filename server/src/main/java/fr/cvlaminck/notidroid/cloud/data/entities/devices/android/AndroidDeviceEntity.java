@@ -6,7 +6,7 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 /**
  * All information that we can retrieve on a device from
  * the android.os.Build class.
- * <p/>
+ * <p>
  * TODO: fill this class
  *
  * @see http://developer.android.com/reference/android/os/Build.html

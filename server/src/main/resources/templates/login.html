@@ -23,11 +23,13 @@
 <div class="container">
 
     <form class="form-signin" method="post" th:action="@{/admin/log-in}" role="form">
-        <h2 id="lblTitle" class="form-signin-heading" th:text="#{login.lblTitle}" />
+        <h2 id="lblTitle" class="form-signin-heading" th:text="#{login.lblTitle}"/>
         <input name="txtEmail" type="email" class="form-control" th:placeholder="#{login.txtEmail.placeholder}"
                required="required" autofocus="autofocus"/>
         <input name="txtPassword" type="password" class="form-control" th:placeholder="#{login.txtPassword.placeholder}"
                required="required"/>
+        <!-- Do not forget the CSRF protection since it is active in Spring Security MVC -->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <button id="btnLogIn" class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.btnLogIn}"/>
     </form>
 

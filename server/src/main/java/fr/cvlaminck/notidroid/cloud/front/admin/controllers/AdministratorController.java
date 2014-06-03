@@ -1,8 +1,6 @@
 package fr.cvlaminck.notidroid.cloud.front.admin.controllers;
 
 import fr.cvlaminck.notidroid.cloud.core.exceptions.NotidroidException;
-import fr.cvlaminck.notidroid.cloud.core.exceptions.users.IncompleteUserInformationException;
-import fr.cvlaminck.notidroid.cloud.core.exceptions.users.InvalidEmailFormatException;
 import fr.cvlaminck.notidroid.cloud.core.managers.users.AdministratorManager;
 import fr.cvlaminck.notidroid.cloud.data.entities.users.AdministratorEntity;
 import fr.cvlaminck.notidroid.cloud.data.entities.users.UserEntity;
@@ -59,7 +57,7 @@ public class AdministratorController
     @RequestMapping(value = "create-first-admin", method = RequestMethod.POST)
     public ModelAndView createFirstAdministrator(@ModelAttribute AdministratorEntity administratorEntity) {
         //If there is already an administrator in the database, redirect the user to the dashboard
-        if(administratorManager.hasAtLeastOneAdministrator()) {
+        if (administratorManager.hasAtLeastOneAdministrator()) {
             return new ModelAndView("redirect:/admin");
         }
 
@@ -84,7 +82,7 @@ public class AdministratorController
     @RequestMapping(value = "create-first-admin", method = RequestMethod.GET)
     public ModelAndView formCreateFirstAdministrator() {
         //If there is already an administrator in the database, redirect the user to the dashboard
-        if(administratorManager.hasAtLeastOneAdministrator()) {
+        if (administratorManager.hasAtLeastOneAdministrator()) {
             return new ModelAndView("redirect:/admin");
         }
 

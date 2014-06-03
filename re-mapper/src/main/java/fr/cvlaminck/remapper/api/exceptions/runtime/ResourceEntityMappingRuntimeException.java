@@ -1,7 +1,5 @@
 package fr.cvlaminck.remapper.api.exceptions.runtime;
 
-import fr.cvlaminck.remapper.api.mappings.ResourceEntityMapping;
-
 public abstract class ResourceEntityMappingRuntimeException extends RuntimeException {
 
     protected ResourceEntityMappingRuntimeException() {

@@ -9,7 +9,7 @@ public class UserResource {
      * Id of this user.
      * Should be used to access other user resources through the REST API.
      * Ex : User Photo /api/users/{id}/photo
-     *
+     * <p>
      * Client must not fill this field when sending user information to the server. The value will be ignored.
      */
     private Long id;

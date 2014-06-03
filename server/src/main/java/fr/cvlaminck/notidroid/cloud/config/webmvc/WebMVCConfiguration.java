@@ -1,5 +1,6 @@
 package fr.cvlaminck.notidroid.cloud.config.webmvc;
 
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -10,19 +11,25 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
 /**
- * Spring WebMVC configuration
+ * Spring WebMVC configuration. Includes :
+ *  - Configuration to allow static resources to be served by the DispatcherServlet
+ *  - Thymeleaf template engine configuration
+ *  - Message source for I18N configuration
  */
 @Configuration
 @EnableWebMvc
+@ComponentScan(basePackages = {
+        "fr.cvlaminck.notidroid.cloud.front.admin.controllers",
+        "fr.cvlaminck.notidroid.cloud.front.api.controllers"
+})
 public class WebMVCConfiguration
-    extends WebMvcConfigurerAdapter {
+        extends WebMvcConfigurerAdapter {
 
     @Bean
     public MessageSource messageSource() {
@@ -52,6 +59,7 @@ public class WebMVCConfiguration
     public SpringTemplateEngine templateEngine(TemplateResolver templateResolver) {
         final SpringTemplateEngine engine = new SpringTemplateEngine();
         engine.setTemplateResolver(templateResolver);
+        engine.addDialect(new LayoutDialect());
         return engine;
     }
 

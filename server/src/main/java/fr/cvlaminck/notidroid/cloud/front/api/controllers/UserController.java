@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller exposing those functions in the form of a REST API :
- *  - New user registration
- *  -
+ * - New user registration
+ * -
  */
 @RestController
 @RequestMapping("/api/users")
