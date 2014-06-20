@@ -3,6 +3,7 @@ package fr.cvlaminck.notidroid.cloud.config.security;
 import fr.cvlaminck.notidroid.cloud.core.security.NotidroidClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -35,7 +36,8 @@ public class APISecurityConfiguration {
                     //TODO : add other Oauth point
             .and()
                 .authorizeRequests()
-                            //Almost all api request require the user to be authenticated and have a valid OAuth2 access token
+                    //Almost all api request require the user to be authenticated and have a valid OAuth2 access token
+                    .antMatchers(HttpMethod.GET, "/api/").permitAll() //Client need server information to decide whether or not they can create an account on the server.
                     .antMatchers("/api/users").permitAll() //User registration do not require to be an authenticated user.
                     .antMatchers("/api/**").access("#oauth2.clientHasRole('ROLE_CLIENT')"); //All users can access all the api, so one mapping is enough for the rest of the API.
         }

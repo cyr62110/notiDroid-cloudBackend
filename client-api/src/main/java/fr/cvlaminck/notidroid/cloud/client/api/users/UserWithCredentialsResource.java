@@ -1,4 +1,4 @@
-package fr.cvlaminck.notidroid.cloud.api.users;
+package fr.cvlaminck.notidroid.cloud.client.api.users;
 
 /**
  * User with its credentials.

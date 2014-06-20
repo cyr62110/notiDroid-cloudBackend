@@ -1,4 +1,4 @@
 include 'server';
-include 'api';
+include 'client-api';
 include 're-mapper';
 

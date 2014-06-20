@@ -74,7 +74,7 @@ dependencies {
     testCompile 'org.springframework:spring-test:4.0.5.RELEASE'
     testCompile 'junit:junit:4.11'
 
-    compile project(':api')
+    compile project(':client-api')
     compile project(':re-mapper')
 
 }

@@ -1,7 +1,7 @@
 package fr.cvlaminck.notidroid.cloud.core.managers.users;
 
-import fr.cvlaminck.notidroid.cloud.api.users.UserResource;
-import fr.cvlaminck.notidroid.cloud.api.users.UserWithCredentialsResource;
+import fr.cvlaminck.notidroid.cloud.client.api.users.UserResource;
+import fr.cvlaminck.notidroid.cloud.client.api.users.UserWithCredentialsResource;
 import fr.cvlaminck.notidroid.cloud.core.exceptions.users.ExistingUserWithEmailException;
 import fr.cvlaminck.notidroid.cloud.core.exceptions.users.IncompleteUserInformationException;
 import fr.cvlaminck.notidroid.cloud.core.exceptions.users.InvalidEmailFormatException;

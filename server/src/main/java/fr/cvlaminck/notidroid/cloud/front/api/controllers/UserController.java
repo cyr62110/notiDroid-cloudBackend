@@ -1,7 +1,7 @@
 package fr.cvlaminck.notidroid.cloud.front.api.controllers;
 
-import fr.cvlaminck.notidroid.cloud.api.users.UserResource;
-import fr.cvlaminck.notidroid.cloud.api.users.UserWithCredentialsResource;
+import fr.cvlaminck.notidroid.cloud.client.api.users.UserResource;
+import fr.cvlaminck.notidroid.cloud.client.api.users.UserWithCredentialsResource;
 import fr.cvlaminck.notidroid.cloud.core.exceptions.NotidroidException;
 import fr.cvlaminck.notidroid.cloud.core.managers.users.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
