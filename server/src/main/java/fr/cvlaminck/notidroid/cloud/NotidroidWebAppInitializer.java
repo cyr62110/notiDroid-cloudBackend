@@ -5,12 +5,18 @@ import fr.cvlaminck.notidroid.cloud.config.data.MainDatabaseConfiguration;
 import fr.cvlaminck.notidroid.cloud.config.data.NotifDatabaseConfiguration;
 import fr.cvlaminck.notidroid.cloud.config.security.SecurityConfiguration;
 import fr.cvlaminck.notidroid.cloud.config.webmvc.WebMVCConfiguration;
+import org.springframework.core.annotation.Order;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
 /**
  * This class help us to configure the Spring DispatcherServlet using
  * annotations.
  */
+@Order(2)
 public class NotidroidWebAppInitializer
     extends AbstractAnnotationConfigDispatcherServletInitializer {
 
@@ -33,6 +39,8 @@ public class NotidroidWebAppInitializer
 
     @Override
     protected String[] getServletMappings() {
-        return new String[] { "/*" };
+        return new String[] { "/" };
     }
+
+
 }

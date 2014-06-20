@@ -19,6 +19,10 @@ dependencies {
     //We will run our project on a servlet container
     compile 'javax.servlet:javax.servlet-api:3.1.0'
 
+    //Which will be an embedded tomcat
+    compile 'org.apache.tomcat:tomcat-catalina:8.0.8'
+    compile 'org.apache.tomcat:tomcat-jasper:8.0.8'
+
     //We use the Spring Framework as the core of our service
     compile 'org.springframework:spring-core:4.0.5.RELEASE'
 
@@ -37,7 +41,9 @@ dependencies {
     //TODO : include mongodb
 
     //With spring security for authentication on both side
-    compile 'org.springframework.security.oauth:spring-security-oauth2:2.0.1.RELEASE'
+    compile 'org.springframework.security.oauth:spring-security-oauth2:2.0.2.RELEASE'
+    compile 'org.springframework.security:spring-security-core:3.2.4.RELEASE'
+    compile 'org.springframework.security:spring-security-config:3.2.4.RELEASE'
 
     //We will also use bootstrap 3 to make a nice UI for the admin side
     compile("org.webjars:jquery:1.11.0")
@@ -67,8 +73,9 @@ dependencies {
 
     //Some librairies used for logging purpose
     compile 'org.slf4j:slf4j-api:1.7.7'
-    runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.0-rc1'
-    runtime 'org.apache.logging.log4j:log4j:2.0-rc1'
+    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.0-rc1'
+    compile 'org.apache.logging.log4j:log4j:2.0-rc1'
+    compile 'org.apache.logging.log4j:log4j-core:2.0-rc1'
 
     //Do not forget to test our code with JUnit
     testCompile 'org.springframework:spring-test:4.0.5.RELEASE'
@@ -76,7 +83,6 @@ dependencies {
 
     compile project(':client-api')
     compile project(':re-mapper')
-
 }
 
 task wrapper(type: Wrapper) {
