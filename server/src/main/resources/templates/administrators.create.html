@@ -45,7 +45,7 @@
         <!-- Part allowing to change the administrator permission -->
         <div id="divPermission">
             <h3 id="lblPermissions" th:text="#{administrators.create.lblPermissions}"/>
-            <span th:if="${giveAllPermissions}">
+            <span th:if="${!giveAllPermissions}">
                 <p>
                     You can only delegate permissions you have yourself to the new administrator. If the new
                     administrator
@@ -54,14 +54,17 @@
                     permissions and
                     that has the MODIFY_ADMINISTRATOR permission.
                 </p>
-                <div class="checkbox" th:each="permission : ${availablePermissions}">
+                <div class="checkbox" th:each="permission : ${permissions}">
                     <label>
-                        <input type="checkbox" value="${permission.name}"/>
+                        <input type="checkbox"
+                               th:text="${permission.displayName}"
+                               th:checked="${permission.attributed}"
+                               th:value="${permission}" />
                     </label>
                 </div>
             </span>
 
-            <p id="lblPermission" th:if="${!giveAllPermissions}" style="padding: 10px;" class="bg-info"
+            <p id="lblPermission" th:if="${giveAllPermissions}" style="padding: 10px;" class="bg-info"
                th:text="#{administrators.create.lblPermission}"/>
         </div>
         <br/>

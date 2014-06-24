@@ -53,12 +53,13 @@ public class SecurityConfiguration {
     @Bean
     @Autowired
     public AuthenticationManager authenticationManager(PasswordEncoder passwordEncoder) {
-        final ProviderManager providerManager = new ProviderManager();
-        //We add our user details service
+        //We create an authentication provider that will use our UserDetailsService to
+        //retrieve information about our users
         final DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(notidroidUserDetailsService);
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
-        providerManager.setProviders(Collections.singletonList(daoAuthenticationProvider));
+        //We create a provider manager with this authentication provider
+        final ProviderManager providerManager = new ProviderManager(Collections.singletonList(daoAuthenticationProvider));
         //Then we return our authentication manager
         return providerManager;
     }

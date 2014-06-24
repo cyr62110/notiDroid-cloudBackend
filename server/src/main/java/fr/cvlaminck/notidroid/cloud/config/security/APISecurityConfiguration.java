@@ -32,8 +32,6 @@ public class APISecurityConfiguration {
                 .antMatcher("/api/**")
                 .authorizeRequests()
                     //Almost all api request require the user to be authenticated and have a valid OAuth2 access token
-                    //.antMatchers("/api/hello").anonymous() //Client need server information to decide whether or not they can create an account on the server.
-                    //.antMatchers("/api/users").permitAll() //User registration do not require to be an authenticated user.
                     .antMatchers("/api/**").access("#oauth2.clientHasRole('ROLE_USER')"); //All users can access all the api, so one mapping is enough for the rest of the API.
         }
     }

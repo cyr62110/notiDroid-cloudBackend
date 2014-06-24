@@ -1,5 +1,6 @@
 package fr.cvlaminck.notidroid.cloud.data.entities.users;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 
 /**
@@ -16,18 +17,22 @@ public class AdministratorEntity
      * Permissions determine which kind of information can be viewed/modified by
      * this administrator.
      */
-    public Permission[] permissions;
+    public PermissionEntity[] permissions;
 
     public AdministratorEntity() {
         super();
-        permissions = new Permission[]{};
+        permissions = new PermissionEntity[]{};
     }
 
-    public Permission[] getPermissions() {
+    public PermissionEntity[] getPermissions() {
         return permissions;
     }
 
-    public void setPermissions(Permission[] permissions) {
+    public void setPermissions(PermissionEntity[] permissions) {
         this.permissions = permissions;
+    }
+
+    public boolean hasPermission(PermissionEntity permission) {
+        return ArrayUtils.contains(permissions, permission);
     }
 }

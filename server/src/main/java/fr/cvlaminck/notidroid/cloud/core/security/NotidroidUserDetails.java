@@ -71,4 +71,8 @@ public class NotidroidUserDetails
     public boolean isEnabled() {
         return true;
     }
+
+    public UserEntity getUser() {
+        return userEntity;
+    }
 }

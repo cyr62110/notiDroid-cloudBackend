@@ -3,6 +3,7 @@ package fr.cvlaminck.notidroid.cloud.config.security;
 import fr.cvlaminck.notidroid.cloud.core.security.NotidroidUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -43,8 +44,12 @@ public class AdminSecurityConfiguration
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        //Static resources like CSS and JS public libraries do not need to be protected.
-        web.ignoring().antMatchers("/webjars/**", "/css/**", "/js/**");
+        web.ignoring()
+                //Static resources like CSS and JS public libraries do not need to be protected.
+                .antMatchers("/webjars/**", "/css/**", "/js/**")
+                //Also some parts of the API must be exposed : account creation, server public information, etc...
+                .antMatchers(HttpMethod.POST, "/api/users")
+                .antMatchers(HttpMethod.GET, "/api/info");
     }
 
     @Override
