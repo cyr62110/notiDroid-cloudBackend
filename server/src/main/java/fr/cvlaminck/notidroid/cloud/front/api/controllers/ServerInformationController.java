@@ -1,6 +1,6 @@
 package fr.cvlaminck.notidroid.cloud.front.api.controllers;
 
-import fr.cvlaminck.notidroid.cloud.client.api.ServerInformation;
+import fr.cvlaminck.notidroid.cloud.client.api.servers.ServerInformationResource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ServerInformationController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public ServerInformation getServerInformation() {
+    public ServerInformationResource getServerInformation() {
         //TODO : fill with real server information, use config, properties, etc...
-        final ServerInformation serverInformation = new ServerInformation();
+        final ServerInformationResource serverInformation = new ServerInformationResource();
         serverInformation.setPublicName("notidroid-dev");
         serverInformation.setVersion("0.1.0-SNAPSHOT");
         return serverInformation;
