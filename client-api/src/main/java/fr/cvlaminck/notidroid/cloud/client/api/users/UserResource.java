@@ -1,7 +1,14 @@
 package fr.cvlaminck.notidroid.cloud.client.api.users;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 /**
- * A User
+ * Representation of an User.
+ *
+ * @since 0.1
  */
 public class UserResource {
 
@@ -10,23 +17,43 @@ public class UserResource {
      * Should be used to access other user resources through the REST API.
      * Ex : User Photo /api/users/{id}/photo
      * <p>
-     * Client must not fill this field when sending user information to the server. The value will be ignored.
+     * Client applications must not fill this field when sending user information to the server. The value will be ignored.
+     *
+     * @since 0.1
      */
+    @Null
     private Long id;
 
     /**
-     * User's first name
+     * User's first name.
+     * Must not be null nor empty.
+     *
+     * @since 0.1
      */
+    @NotNull
+    @Size(min = 1)
     private String firstName;
 
     /**
-     * User's last name
+     * User's last name.
+     * Must not be null nor empty.
+     *
+     * @since 0.1
      */
+    @NotNull
+    @Size(min = 1)
     private String lastName;
 
     /**
-     * User's email address
+     * User's email address.
+     * Must not be null nor empty. It must also look like an email address
+     * since an email will be sent to this address to validate the account
+     * creation.
+     *
+     * @since 0.1
      */
+    @NotNull
+    @Pattern(regexp = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,5}")
     private String email;
 
     public Long getId() {

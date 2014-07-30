@@ -3,7 +3,6 @@ package fr.cvlaminck.notidroid.cloud.config.security;
 import fr.cvlaminck.notidroid.cloud.core.security.NotidroidClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -29,9 +28,9 @@ public class APISecurityConfiguration {
         @Override
         public void configure(HttpSecurity http) throws Exception {
             http
-                .antMatcher("/api/**")
-                .authorizeRequests()
-                    //Almost all api request require the user to be authenticated and have a valid OAuth2 access token
+                    .antMatcher("/api/**")
+                    .authorizeRequests()
+                            //Almost all api request require the user to be authenticated and have a valid OAuth2 access token
                     .antMatchers("/api/**").access("#oauth2.clientHasRole('ROLE_USER')"); //All users can access all the api, so one mapping is enough for the rest of the API.
         }
     }
@@ -60,8 +59,10 @@ public class APISecurityConfiguration {
 
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-            endpoints.tokenStore(tokenStore)
+            endpoints
+                    .tokenStore(tokenStore)
                     .authenticationManager(authenticationManager);
+                    //.pathMapping("/oauth/token", "/api/public/oauth/token");
         }
 
         @Override

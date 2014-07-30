@@ -4,6 +4,15 @@ apply plugin: 'maven-publish'
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'javax.validation:validation-api:1.0.0.GA'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.0'
+}
+
 publishing {
     publications {
         maven(MavenPublication) {

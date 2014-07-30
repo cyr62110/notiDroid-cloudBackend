@@ -2,6 +2,7 @@ package fr.cvlaminck.notidroid.cloud.config.data;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.neo4j.config.EnableNeo4jRepositories;
 import org.springframework.data.neo4j.config.Neo4jConfiguration;
@@ -16,6 +17,7 @@ import org.springframework.data.neo4j.support.typesafety.TypeSafetyPolicy;
  */
 @Configuration
 @EnableNeo4jRepositories(basePackages = {"fr.cvlaminck.notidroid.cloud.data.repositories"})
+@ComponentScan(basePackages = "fr.cvlaminck.notidroid.cloud.data.repositories.extensions")
 public class MainDatabaseConfiguration extends Neo4jConfiguration {
 
     public MainDatabaseConfiguration() {

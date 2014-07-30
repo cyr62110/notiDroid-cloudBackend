@@ -1,7 +1,10 @@
 package fr.cvlaminck.notidroid.cloud.data.entities.users;
 
 import org.springframework.data.neo4j.annotation.GraphId;
+import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
+
+import java.util.Date;
 
 /**
  * An user of the notiDroid cloudbackend.
@@ -26,6 +29,7 @@ public class UserEntity {
     /**
      * Email of the user
      */
+    @Indexed
     private String email;
 
     /**
@@ -35,12 +39,26 @@ public class UserEntity {
     private String password;
 
     /**
+     * When this user has created its account on the backend.
+     */
+    private Date accountCreationDate;
+
+    /**
+     * When the user has last validated its email address.
+     * This value may change if the user changes its email address.
+     */
+    private Date emailValidationDate;
+
+    /**
      * Indicate whether or not the user has validated his email address.
      * An user cannot login until its email is validated.
      */
     private boolean hasValidatedHisEmail;
 
     public UserEntity() {
+        accountCreationDate = new Date();
+        hasValidatedHisEmail = false;
+        emailValidationDate = null;
     }
 
     public Long getId() {
@@ -77,6 +95,18 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Date getAccountCreationDate() {
+        return accountCreationDate;
+    }
+
+    public Date getEmailValidationDate() {
+        return emailValidationDate;
+    }
+
+    public void setEmailValidationDate(Date emailValidationDate) {
+        this.emailValidationDate = emailValidationDate;
     }
 
     public boolean hasValidatedHisEmail() {

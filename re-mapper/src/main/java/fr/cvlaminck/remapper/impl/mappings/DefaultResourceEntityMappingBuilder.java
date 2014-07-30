@@ -4,6 +4,8 @@ import fr.cvlaminck.remapper.api.fieldconverters.FieldConverter;
 import fr.cvlaminck.remapper.api.fieldconverters.FieldConvertersContainer;
 import fr.cvlaminck.remapper.api.mappings.ResourceEntityFieldMapping;
 import fr.cvlaminck.remapper.api.mappings.ResourceEntityMapping;
+import org.apache.commons.lang3.reflect.FieldUtils;
+import sun.reflect.misc.FieldUtil;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -20,6 +22,10 @@ public class DefaultResourceEntityMappingBuilder {
      */
     private FieldConvertersContainer fieldConvertersContainer = null;
 
+    public DefaultResourceEntityMappingBuilder(FieldConvertersContainer fieldConvertersContainer) {
+        this.fieldConvertersContainer = fieldConvertersContainer;
+    }
+
     /**
      * Build a map containing all fields that are contained by the provided type.
      * Fields can have public, protected, private visibility.
@@ -32,7 +38,7 @@ public class DefaultResourceEntityMappingBuilder {
     private Map<String, Field> getFieldsInType(Class<?> type) {
         Map<String, Field> fieldsInType = new HashMap<String, Field>();
         //We retrieve all fields declared in the type but also in its super types.
-        Field[] fields = type.getFields();
+        Field[] fields = FieldUtils.getAllFields(type);
         for (Field field : fields) {
             fieldsInType.put(field.getName(), field);
         }
@@ -64,8 +70,7 @@ public class DefaultResourceEntityMappingBuilder {
                     resourceEntityMapping.addFieldMapping(resourceEntityFieldMapping);
             }
         }
-
-        return null;
+        return resourceEntityMapping;
     }
 
     /**
@@ -85,8 +90,8 @@ public class DefaultResourceEntityMappingBuilder {
             return null;
         return new DefaultResourceEntityFieldMapping(
                 entityField.getName(),
-                entityField,
                 resourceField,
+                entityField,
                 fieldConverter
         );
     }

@@ -1,6 +1,7 @@
 package fr.cvlaminck.notidroid.cloud.core.exceptions;
 
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
 
 import java.util.Locale;
 
@@ -15,8 +16,25 @@ public class NotidroidException extends Exception {
      */
     private String i18NMessageId = null;
 
+    /**
+     * Status code that should be associated to this exception
+     * and returned by a REST front to the client.
+     */
+    private HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+
     public NotidroidException(String message) {
         super(message);
+    }
+
+    public NotidroidException(HttpStatus httpStatus, String message) {
+        super(message);
+        this.httpStatus = httpStatus;
+    }
+
+    public NotidroidException(HttpStatus httpStatus, String message, String i18NMessageId) {
+        super(message);
+        this.httpStatus = httpStatus;
+        this.i18NMessageId = i18NMessageId;
     }
 
     public NotidroidException(String message, String i18NMessageId) {
@@ -36,7 +54,18 @@ public class NotidroidException extends Exception {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 
-    public String getMessage(MessageSource messageSource, Locale locale) {
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+    /**
+     * Return a localized version of the message.
+     *
+     * @param messageSource MessageSource that will be requested to obtain the localized version of the message.
+     * @param locale
+     * @return a localized version of the exception message.
+     */
+    public String getLocalizedMessage(MessageSource messageSource, Locale locale) {
         if (i18NMessageId == null)
             return getMessage();
         else

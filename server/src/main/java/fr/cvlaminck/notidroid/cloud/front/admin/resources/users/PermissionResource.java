@@ -57,7 +57,7 @@ public class PermissionResource {
     private static String getDescription(MessageSource messageSource, PermissionEntity permission) {
         final Locale locale = LocaleContextHolder.getLocale();
         return (!StringUtils.isBlank(permission.getDescriptionMessageRef())) ?
-                messageSource.getMessage(permission.getDescriptionMessageRef(), null, locale):"";
+                messageSource.getMessage(permission.getDescriptionMessageRef(), null, locale) : "";
     }
 
     public String getDisplayName() {

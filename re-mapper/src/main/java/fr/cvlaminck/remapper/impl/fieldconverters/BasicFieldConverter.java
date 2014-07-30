@@ -39,9 +39,9 @@ public abstract class BasicFieldConverter
     public void convert(Object src, Field srcField, Object dst, Field dstField) {
         try {
             //We read the value of the field from the source even if the field is private
-            Object srcFieldValue = FieldUtils.readField(srcField, src, true);
+            final Object srcFieldValue = FieldUtils.readField(srcField, src, true);
             //If the source is null, the output will be null too. So we do not require a deepCopy of null.
-            Object dstFieldValue = (srcFieldValue != null) ? deepCopy(srcFieldValue) : null;
+            final Object dstFieldValue = (srcFieldValue != null) ? deepCopy(srcFieldValue) : null;
             //And we write the deepCopy of this value to the destination object
             FieldUtils.writeField(dstField, dst, dstFieldValue, true);
         } catch (IllegalAccessException e) {

@@ -10,7 +10,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
@@ -30,7 +32,7 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 //@EnableWebMvc
 @ComponentScan(basePackages = {
         "fr.cvlaminck.notidroid.cloud.front.admin.controllers",
-        "fr.cvlaminck.notidroid.cloud.front.api.controllers",
+        "fr.cvlaminck.notidroid.cloud.front.api",
         "fr.cvlaminck.notidroid.cloud.front.debug.controllers" //TODO : remove this in production
 })
 public class WebMVCConfiguration

@@ -3,6 +3,8 @@ package fr.cvlaminck.notidroid.cloud.client.api.servers;
 /**
  * Information about the notidroid cloud backend that
  * is currently hosted on the server.
+ *
+ * @since 0.1
  */
 public class ServerInformationResource {
 
@@ -23,6 +25,10 @@ public class ServerInformationResource {
     private int supportedAPIVersion[] = null;
 
     //TODO : more to add
+
+    public ServerInformationResource() {
+        supportedAPIVersion = new int[]{};
+    }
 
     public String getPublicName() {
         return publicName;

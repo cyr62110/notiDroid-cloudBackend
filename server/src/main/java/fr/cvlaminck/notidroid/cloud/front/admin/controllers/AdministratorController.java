@@ -1,7 +1,7 @@
 package fr.cvlaminck.notidroid.cloud.front.admin.controllers;
 
 import fr.cvlaminck.notidroid.cloud.core.exceptions.NotidroidException;
-import fr.cvlaminck.notidroid.cloud.core.managers.users.AdministratorManager;
+import fr.cvlaminck.notidroid.cloud.core.managers.api.users.AdministratorManager;
 import fr.cvlaminck.notidroid.cloud.data.entities.users.AdministratorEntity;
 import fr.cvlaminck.notidroid.cloud.data.entities.users.PermissionEntity;
 import fr.cvlaminck.notidroid.cloud.data.entities.users.UserEntity;
@@ -15,13 +15,11 @@ import org.springframework.context.MessageSourceAware;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.security.Principal;
 import java.util.*;
 
 @Controller
@@ -85,7 +83,7 @@ public class AdministratorController
             administratorManager.createAdministrator(administratorEntity);
             return new ModelAndView("redirect:/admin");
         } catch (NotidroidException e) {
-            model.put("error", e.getMessage(messageSource, LocaleContextHolder.getLocale()));
+            model.put("error", e.getLocalizedMessage(messageSource, LocaleContextHolder.getLocale()));
         }
         return new ModelAndView("administrators.create", model);
     }
@@ -117,7 +115,7 @@ public class AdministratorController
         final List<PermissionResource> permissions = new LinkedList<>();
         //We must convert the list of all resources in a list
         //of permission that can be given to the new/modified administrator
-        for(PermissionEntity permission : PermissionEntity.values()) {
+        for (PermissionEntity permission : PermissionEntity.values()) {
             permissions.add(new PermissionResource(messageSource, permission, administrator, currentAdministrator));
         }
         return permissions;

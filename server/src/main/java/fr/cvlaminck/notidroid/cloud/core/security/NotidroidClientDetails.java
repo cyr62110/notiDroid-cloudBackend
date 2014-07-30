@@ -109,6 +109,8 @@ public class NotidroidClientDetails
 
     @Override
     public Map<String, Object> getAdditionalInformation() {
-        return new HashMap<>();
+        final Map<String, Object> additionalInformation = new HashMap<>();
+        additionalInformation.put("user", userEntity);
+        return additionalInformation;
     }
 }

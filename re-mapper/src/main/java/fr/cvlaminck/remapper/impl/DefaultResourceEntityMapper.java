@@ -32,7 +32,7 @@ public class DefaultResourceEntityMapper
 
     public DefaultResourceEntityMapper() {
         fieldConvertersContainer = new DefaultFieldConvertersContainer();
-        resourceEntityMappingBuilder = new DefaultResourceEntityMappingBuilder();
+        resourceEntityMappingBuilder = new DefaultResourceEntityMappingBuilder(fieldConvertersContainer);
         resourceEntityMappingCache = null;
     }
 

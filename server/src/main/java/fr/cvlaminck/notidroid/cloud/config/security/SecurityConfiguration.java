@@ -1,6 +1,5 @@
 package fr.cvlaminck.notidroid.cloud.config.security;
 
-import fr.cvlaminck.notidroid.cloud.config.data.MainDatabaseConfiguration;
 import fr.cvlaminck.notidroid.cloud.core.security.NotidroidClientDetailsService;
 import fr.cvlaminck.notidroid.cloud.core.security.NotidroidUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
