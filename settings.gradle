@@ -1,4 +1,8 @@
 include 'server';
 include 'client-api';
 include 're-mapper';
+include 'activemq';
+include 'activemq-test';
+
+include 'private-api'
 

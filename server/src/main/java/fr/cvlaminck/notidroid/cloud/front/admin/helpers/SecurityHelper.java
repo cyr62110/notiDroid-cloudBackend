@@ -1,6 +1,6 @@
 package fr.cvlaminck.notidroid.cloud.front.admin.helpers;
 
-import fr.cvlaminck.notidroid.cloud.core.security.NotidroidUserDetails;
+import fr.cvlaminck.notidroid.cloud.core.security.details.NotidroidUserDetails;
 import fr.cvlaminck.notidroid.cloud.data.entities.users.AdministratorEntity;
 import org.springframework.security.core.Authentication;
 

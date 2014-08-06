@@ -32,7 +32,7 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 //@EnableWebMvc
 @ComponentScan(basePackages = {
         "fr.cvlaminck.notidroid.cloud.front.admin.controllers",
-        "fr.cvlaminck.notidroid.cloud.front.api",
+        "fr.cvlaminck.notidroid.cloud.front.apis", //Controllers for both public(client) and private APIs.
         "fr.cvlaminck.notidroid.cloud.front.debug.controllers" //TODO : remove this in production
 })
 public class WebMVCConfiguration

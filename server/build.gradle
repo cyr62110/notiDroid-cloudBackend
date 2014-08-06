@@ -86,6 +86,7 @@ dependencies {
     testCompile 'junit:junit:4.11'
 
     compile project(':client-api')
+    compile project(':private-api')
     compile project(':re-mapper')
 
 }

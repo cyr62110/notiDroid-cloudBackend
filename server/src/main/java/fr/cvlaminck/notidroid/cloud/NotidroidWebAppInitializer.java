@@ -20,9 +20,9 @@ public class NotidroidWebAppInitializer
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class<?>[]{
+                RuntimeConfiguration.class,
                 MainDatabaseConfiguration.class,
                 NotifDatabaseConfiguration.class,
-                RuntimeConfiguration.class, //Runtime configurations should be loaded after the database has been configured.
                 CoreConfiguration.class,
                 SecurityConfiguration.class
         };

@@ -1,6 +1,5 @@
 package fr.cvlaminck.notidroid.cloud.config.security;
 
-import fr.cvlaminck.notidroid.cloud.core.security.NotidroidUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,7 +7,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Configuration of Spring Security for the administration side.
@@ -48,12 +46,11 @@ public class AdminSecurityConfiguration
                 //TODO : Add special roles for each task
                 .regexMatchers("/admin/?.*").hasRole("ADMINISTRATOR") //The user must be logged in as an administrator to access the console.
                 .and()
-                        //We configure our sign-in page for administrators.
-                .formLogin()
+                .formLogin() //We configure our sign-in page for administrators.
                 .loginPage("/admin/log-in")
                 .usernameParameter("txtEmail")
                 .passwordParameter("txtPassword")
-                .defaultSuccessUrl("/admin") //When an admin is authenticated, we show him its dashboard
+                .defaultSuccessUrl("/admin") //When an admin is authenticated, we show him his dashboard
                 .failureUrl("/admin/log-in")
                 .permitAll(); //Everybody can access the login page, looks logic for me.
     }

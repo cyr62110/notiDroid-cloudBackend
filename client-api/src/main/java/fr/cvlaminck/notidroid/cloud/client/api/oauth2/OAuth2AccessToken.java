@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Representation of the security token returned by
  * the server when the user authenticates himself.
+ *
+ * @since 0.1
  */
 public class OAuth2AccessToken {
 

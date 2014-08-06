@@ -1,6 +1,6 @@
 package fr.cvlaminck.notidroid.cloud.config.security;
 
-import fr.cvlaminck.notidroid.cloud.core.security.NotidroidClientDetailsService;
+import fr.cvlaminck.notidroid.cloud.core.security.services.NotidroidClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,8 +30,9 @@ public class APISecurityConfiguration {
             http
                     .antMatcher("/api/**")
                     .authorizeRequests()
-                            //Almost all api request require the user to be authenticated and have a valid OAuth2 access token
-                    .antMatchers("/api/**").access("#oauth2.clientHasRole('ROLE_USER')"); //All users can access all the api, so one mapping is enough for the rest of the API.
+                    //Almost all endpoints under /api are protected using the Spring Security OAuth2 framework. Only endpoint under /api/public are not protected at all.
+                    .antMatchers("/api/private/**").access("#oauth2.clientHasRole('ROLE_EXTERNAL_SERVICE') and #oauth2.hasScope('private-api')") //Private API is only accessible by registered external service.
+                    .antMatchers("/api/**").access("#oauth2.clientHasRole('ROLE_USER') and #oauth2.hasScope('client-api')"); //Non enumerated endpoints are part of the public API and requires the 'client-api' scope.
         }
     }
 
@@ -67,7 +68,8 @@ public class APISecurityConfiguration {
 
         @Override
         public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-            oauthServer.realm("notidroid");
+            oauthServer.realm("notidroid")
+                       .checkTokenAccess("hasRole('ROLE_EXTERNAL_SERVICE')"); //External services are allowed to use the check_token endpoint to authenticate users that connect to them.
         }
 
     }

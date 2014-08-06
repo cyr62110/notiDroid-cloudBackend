@@ -1,0 +1,25 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.0'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'fr.cvlaminck.notidroid'
+            artifactId 'cloud-private-java-api'
+            version '0.2.0-SNAPSHOT'
+
+            from components.java
+        }
+    }
+}

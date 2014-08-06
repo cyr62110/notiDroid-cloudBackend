@@ -1,0 +1,21 @@
+{
+    "databases" : [
+        "neo4j" : {
+            "embedded" : false
+            //Connector configuration
+        },
+        "mongodb" : {
+            //Connector configuration
+        }
+    ],
+    "externalServices" : [
+        "activeMQ" : {
+            "username" : "active-mq",
+            "password" : "password",
+            "serviceLocation" : "localhost"
+        }
+    ],
+    "debug" : {
+        "outputFullStackTraceOnError" : true
+    }
+}

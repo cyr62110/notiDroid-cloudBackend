@@ -1,0 +1,26 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.apache.activemq:activemq-all:5.10.0'
+    compile 'org.apache.activemq:activemq-jaas:5.10.0'
+
+    runtime 'org.fusesource.mqtt-client:mqtt-client:1.10'
+
+    compile 'commons-validator:commons-validator:1.4.0'
+
+    compile 'commons-codec:commons-codec:1.9'
+
+    compile 'commons-io:commons-io:2.4'
+
+    //We use Jackson2 to deserialize response from the cloudBackend
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.0'
+
+    compile project(':private-api')
+}
