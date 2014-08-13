@@ -13,7 +13,7 @@ public class TestMQTT {
        MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
        mqttConnectOptions.setCleanSession(true); //We do not want durable subscription
        mqttConnectOptions.setUserName("device-44");
-       mqttConnectOptions.setPassword("df852a36-bc40-4840-a00d-4bb3fb58b15d".toCharArray());
+       mqttConnectOptions.setPassword("97b26cfb-aa77-437c-9d8d-46b8b4deacbe".toCharArray());
 
        MqttClient mqttClient = new MqttClient("tcp://localhost:8989", MqttClient.generateClientId());
        mqttClient.connect(mqttConnectOptions);

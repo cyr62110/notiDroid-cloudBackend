@@ -96,7 +96,7 @@ public class NotidroidDeviceLoginModule
 
         //Then we ignore all username not starting with the proper prefix
         if (!username.startsWith(deviceIdPrefix + DEVICE_ID_SEPARATOR))
-            return false;
+            throw new LoginException("Bad credentials");
 
         //We check the token using the authorization server
         checkAccessToken();

@@ -40,13 +40,13 @@ public abstract class NotidroidAbstractLoginModule
         //URL of the authorization server used to validate the access_token
         this.authorizationServerUrl = (String) options.get(OPTION_KEY_AUTHORIZATION_SERVER_URL);
         if (authorizationServerUrl == null || !urlValidator.isValid(authorizationServerUrl))
-            throw new IllegalStateException("NotidroidDeviceLoginModule misconfiguration : Key '" + OPTION_KEY_AUTHORIZATION_SERVER_URL
+            throw new IllegalStateException(this.getClass().getSimpleName() + " misconfiguration : Key '" + OPTION_KEY_AUTHORIZATION_SERVER_URL
                     + "' must be configured in the option and must point to a valid URL.");
 
         //Root URL of the private API
         this.apiRootUrl = (String) options.get(OPTION_KEY_API_ROOT_URL);
         if (apiRootUrl == null || !urlValidator.isValid(apiRootUrl))
-            throw new IllegalStateException("NotidroidDeviceLoginModule misconfiguration : Key '" + OPTION_KEY_API_ROOT_URL
+            throw new IllegalStateException(this.getClass().getSimpleName() + " misconfiguration : Key '" + OPTION_KEY_API_ROOT_URL
                     + "' must be configured in the option and must point to a valid URL.");
 
         //Credentials to access the private API of the cloudBackend. May be provided by options or by the shareState.
@@ -54,7 +54,7 @@ public abstract class NotidroidAbstractLoginModule
         final String username = (String) options.get(OPTION_KEY_USERNAME);
         final String password = (String) options.get(OPTION_KEY_PASSWORD);
         if(username == null || password == null || password.length() == 0 || username.length() == 0) {
-            throw new IllegalStateException("NotidroidDeviceLoginModule misconfiguration : Keys '" + OPTION_KEY_USERNAME
+            throw new IllegalStateException(this.getClass().getSimpleName() + " misconfiguration : Keys '" + OPTION_KEY_USERNAME
                     + "' and '" + OPTION_KEY_PASSWORD + "'  must be configured in the option.");
         }
         try {

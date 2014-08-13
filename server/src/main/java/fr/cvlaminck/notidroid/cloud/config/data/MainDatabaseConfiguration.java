@@ -16,7 +16,10 @@ import org.springframework.data.neo4j.support.typesafety.TypeSafetyPolicy;
  * that have sent notification through this project, etc...
  */
 @Configuration
-@EnableNeo4jRepositories(basePackages = {"fr.cvlaminck.notidroid.cloud.data.repositories"})
+@EnableNeo4jRepositories(basePackages = {
+        "fr.cvlaminck.notidroid.cloud.data.repositories.devices",
+        "fr.cvlaminck.notidroid.cloud.data.repositories.users",
+})
 @ComponentScan(basePackages = "fr.cvlaminck.notidroid.cloud.data.repositories.extensions")
 public class MainDatabaseConfiguration extends Neo4jConfiguration {
 

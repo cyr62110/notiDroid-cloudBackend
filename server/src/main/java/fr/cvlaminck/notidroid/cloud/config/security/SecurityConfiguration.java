@@ -2,6 +2,7 @@ package fr.cvlaminck.notidroid.cloud.config.security;
 
 import fr.cvlaminck.notidroid.cloud.core.security.services.NotidroidClientDetailsService;
 import fr.cvlaminck.notidroid.cloud.core.security.services.NotidroidUserDetailsService;
+import fr.cvlaminck.notidroid.cloud.core.security.stores.RepositoryBasedTokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -42,11 +43,14 @@ public class SecurityConfiguration {
     @Autowired
     NotidroidUserDetailsService notidroidUserDetailsService;
 
+    /**
+     * A token store that stores tokens in the Mongo database using
+     * the TokenRepository and the Spring Data MongoDB library.
+     */
     @Bean
-    public TokenStore tokenStore() {
-        //Oauth2 Token are stored in--memory for now, change to store it in a database
-        //TODO : store in database
-        return new InMemoryTokenStore();
+    @Autowired
+    public TokenStore tokenStore(RepositoryBasedTokenStore tokenStore) {
+        return tokenStore;
     }
 
     @Bean

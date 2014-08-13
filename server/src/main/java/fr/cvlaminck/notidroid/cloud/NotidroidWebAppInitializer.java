@@ -1,6 +1,7 @@
 package fr.cvlaminck.notidroid.cloud;
 
 import fr.cvlaminck.notidroid.cloud.config.core.CoreConfiguration;
+import fr.cvlaminck.notidroid.cloud.config.core.MessageBrokerConfiguration;
 import fr.cvlaminck.notidroid.cloud.config.data.MainDatabaseConfiguration;
 import fr.cvlaminck.notidroid.cloud.config.data.NotifDatabaseConfiguration;
 import fr.cvlaminck.notidroid.cloud.config.runtime.RuntimeConfiguration;
@@ -23,6 +24,7 @@ public class NotidroidWebAppInitializer
                 RuntimeConfiguration.class,
                 MainDatabaseConfiguration.class,
                 NotifDatabaseConfiguration.class,
+                MessageBrokerConfiguration.class,
                 CoreConfiguration.class,
                 SecurityConfiguration.class
         };

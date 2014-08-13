@@ -20,6 +20,16 @@ public class ServerInformationResource {
     private String version;
 
     /**
+     * Location of the message broker on the network
+     */
+    private String messageBrokerUrl = null;
+
+    /**
+     * Location of the authorization server on the network.
+     */
+    private String authorizationServerUrl = null;
+
+    /**
      *
      */
     private int supportedAPIVersion[] = null;
@@ -52,5 +62,21 @@ public class ServerInformationResource {
 
     public void setSupportedAPIVersion(int[] supportedAPIVersion) {
         this.supportedAPIVersion = supportedAPIVersion;
+    }
+
+    public String getMessageBrokerUrl() {
+        return messageBrokerUrl;
+    }
+
+    public void setMessageBrokerUrl(String messageBrokerUrl) {
+        this.messageBrokerUrl = messageBrokerUrl;
+    }
+
+    public String getAuthorizationServerUrl() {
+        return authorizationServerUrl;
+    }
+
+    public void setAuthorizationServerUrl(String authorizationServerUrl) {
+        this.authorizationServerUrl = authorizationServerUrl;
     }
 }

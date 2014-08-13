@@ -6,7 +6,7 @@ targetCompatibility = 1.8
 
 jar {
     baseName = 'notidroid-cloudBackend'
-    version = '1.0.0-SNAPSHOT'
+    version = '0.2.0-SNAPSHOT'
 }
 
 repositories {
@@ -15,19 +15,25 @@ repositories {
     maven { url "http://repo.spring.io/libs-snapshot" }
 }
 
+ext {
+    activeMQVersion = "5.10.0"
+    springVersion = "4.0.3.RELEASE"
+    embeddedTomcatVersion = "8.0.8"
+}
+
 dependencies {
     //We will run our project on a servlet container
     compile 'javax.servlet:javax.servlet-api:3.1.0'
 
     //Which will be an embedded tomcat
-    compile 'org.apache.tomcat:tomcat-catalina:8.0.8'
-    compile 'org.apache.tomcat:tomcat-jasper:8.0.8'
+    compile "org.apache.tomcat:tomcat-catalina:$embeddedTomcatVersion"
+    compile "org.apache.tomcat:tomcat-jasper:$embeddedTomcatVersion"
 
     //We use the Spring Framework as the core of our service
-    compile 'org.springframework:spring-core:4.0.5.RELEASE'
+    compile "org.springframework:spring-core:$springVersion"
 
     //Spring MVC for the REST interface and the admin UI
-    compile 'org.springframework:spring-webmvc:4.0.5.RELEASE'
+    compile "org.springframework:spring-webmvc:$springVersion"
 
     //We use Jackson2 to serialize our REST resources
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.0'
@@ -41,7 +47,13 @@ dependencies {
     compile 'org.neo4j:neo4j:2.0.+'
 
     //Storage of notification, images are delegated to a MongoDB and its GridFS
-    //TODO : include mongodb
+    compile 'org.springframework.data:spring-data-mongodb:1.5.2.RELEASE'
+
+    //We use ActiveMQ as base of our push-notification framework.
+    //And we use Spring-JMS to communicate with our ActiveMQ instances.
+    compile "org.springframework:spring-jms:$springVersion"
+    compile "org.apache.activemq:activemq-client:$activeMQVersion"
+    runtime "org.apache.activemq:activemq-jaas:$activeMQVersion"
 
     //With spring security for authentication on both side
     compile 'org.springframework.security.oauth:spring-security-oauth2:2.0.2.RELEASE'
@@ -82,7 +94,7 @@ dependencies {
     compile 'org.apache.logging.log4j:log4j-core:2.0-rc1'
 
     //Do not forget to test our code with JUnit
-    testCompile 'org.springframework:spring-test:4.0.5.RELEASE'
+    testCompile "org.springframework:spring-test:$springVersion"
     testCompile 'junit:junit:4.11'
 
     compile project(':client-api')

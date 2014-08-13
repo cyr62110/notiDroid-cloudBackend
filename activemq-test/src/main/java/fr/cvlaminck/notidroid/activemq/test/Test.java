@@ -11,7 +11,7 @@ public class Test {
 
     public static void main(String[] args) throws JMSException {
         final ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:8888");
-        final Connection connection = connectionFactory.createConnection("device-44", "b7ea88d3-6cc8-4b01-8653-dd75032d0204");
+        final Connection connection = connectionFactory.createConnection("active-mq", "password2");
         Session session = null;
         MessageProducer messageProducer = null;
         MessageConsumer messageConsumer = null;

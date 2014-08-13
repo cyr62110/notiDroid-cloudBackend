@@ -1,5 +1,7 @@
 package fr.cvlaminck.notidroid.activemq.filters;
 
+import fr.cvlaminck.notidroid.activemq.utils.ConnectionContextUtils;
+import fr.cvlaminck.notidroid.cloud.prvt.api.mq.UserTopicUtils;
 import org.apache.activemq.broker.Broker;
 import org.apache.activemq.broker.BrokerFilter;
 import org.apache.activemq.broker.ConnectionContext;
@@ -25,7 +27,7 @@ import org.apache.activemq.command.ProducerInfo;
 public class NotidroidUserBrokerFilter
         extends BrokerFilter {
 
-    public final static String USER_TOPICS_PREFIX = "users.";
+    public final static String USER_TOPICS_PREFIX = UserTopicUtils.USER_TOPIC_PREFIX;
 
     public final static String VIRTUAL_USER_TOPIC = USER_TOPICS_PREFIX + "me";
 
@@ -34,36 +36,52 @@ public class NotidroidUserBrokerFilter
     }
 
     @Override
-    public Destination addDestination(ConnectionContext context, ActiveMQDestination destination, boolean createIfTemporary) throws Exception {
-        //Destination starting by ActiveMQ are ignored by the plugin
-        if (destination.getPhysicalName().startsWith("ActiveMQ"))
-            return super.addDestination(context, destination, createIfTemporary);
-
-        //An user can only create its own topic. So we check that teh destination is the one reserved for our user.
-        final String base64EncodedEmailAddress = null;
-        if(!destination.isTopic() && !(USER_TOPICS_PREFIX + base64EncodedEmailAddress).equals(destination.getPhysicalName()))
-            throw new IllegalStateException("Users are only allowed to pub/sub on the 'users.me' topic. Please check your configuration.");
-
-        return super.addDestination(context, destination, createIfTemporary);
-    }
-
-    @Override
     public void addProducer(ConnectionContext context, ProducerInfo info) throws Exception {
-        super.addProducer(context, info);
-    }
+        //We check that the connection has been established by an user using a notidroid client application.
+        //If not this filter will ignore this operation and forward to the next filter.
+        if(!ConnectionContextUtils.isUser(context)) {
+            super.addProducer(context, info);
+            return;
+        }
 
-    @Override
-    public Subscription addConsumer(ConnectionContext context, ConsumerInfo info) throws Exception {
+        /* if(!ConnectionContextUtils.canUserPublish(context))
+            throw new SecurityException("Your are not allowed to publish a message."); */
+        //When user connect their device using the MQTT protocol, the destination is null so we handle this.
+        if(info.getDestination() == null) {
+            super.addProducer(context, info);
+            return;
+        }
+
         //User can only pub/sub on the virtual 'users.me' topic.
         if (!info.getDestination().isTopic() && !info.getDestination().getPhysicalName().equals(VIRTUAL_USER_TOPIC))
             throw new SecurityException("Users are only allowed to pub/sub on the 'users.me' topic.");
 
         //We change the destination to match the real name of the topic reserved to this user
-        final String base64EncodedEmailAddress = null;
-        ActiveMQDestination physicalDestination = new ActiveMQTopic(USER_TOPICS_PREFIX + base64EncodedEmailAddress);
-        info.setDestination(physicalDestination);
+        info.setDestination(getUserTopic(context));
+
+        super.addProducer(context, info);
+    }
+
+    @Override
+    public Subscription addConsumer(ConnectionContext context, ConsumerInfo info) throws Exception {
+        //We check that the connection has been established by an user using a notidroid client application.
+        //If not this filter will ignore this operation and forward to the next filter.
+        if(!ConnectionContextUtils.isUser(context))
+            return super.addConsumer(context, info);
+
+        //User can only pub/sub on the virtual 'users.me' topic.
+        if (!info.getDestination().isTopic() && !info.getDestination().getPhysicalName().equals(VIRTUAL_USER_TOPIC))
+            throw new SecurityException("Users are only allowed to pub/sub on the 'users.me' topic.");
+
+        //We change the destination to match the real name of the topic reserved to this user
+        info.setDestination(getUserTopic(context));
 
         return super.addConsumer(context, info);
+    }
+
+    private ActiveMQDestination getUserTopic(ConnectionContext context) {
+        final String userEmailAddress = ConnectionContextUtils.userEmailAddress(context);
+        return new ActiveMQTopic(UserTopicUtils.getUserTopic(userEmailAddress));
     }
 
 }

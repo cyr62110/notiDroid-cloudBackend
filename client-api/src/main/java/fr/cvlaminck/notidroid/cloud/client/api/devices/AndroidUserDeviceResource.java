@@ -12,10 +12,10 @@ import javax.validation.constraints.Size;
  *
  * @since 0.1
  */
-@JsonTypeName(value = AndroidUserDeviceResource.NAME)
+@JsonTypeName(value = AndroidUserDeviceResource.TYPE_NAME)
 public class AndroidUserDeviceResource
         extends UserDeviceResource {
-    public final static String NAME = "android";
+    public final static String TYPE_NAME = "android";
 
     /**
      * User-visible brand of this device.

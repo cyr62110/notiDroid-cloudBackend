@@ -76,4 +76,12 @@ public abstract class ExternalServiceRuntimeConfiguration {
     public void setServiceLocation(String serviceLocation) {
         this.serviceLocation = serviceLocation;
     }
+
+    public String getConnectorUrl() {
+        return connectorUrl;
+    }
+
+    public void setConnectorUrl(String connectorUrl) {
+        this.connectorUrl = connectorUrl;
+    }
 }

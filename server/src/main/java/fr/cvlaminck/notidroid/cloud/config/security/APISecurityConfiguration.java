@@ -1,6 +1,7 @@
 package fr.cvlaminck.notidroid.cloud.config.security;
 
 import fr.cvlaminck.notidroid.cloud.core.security.services.NotidroidClientDetailsService;
+import fr.cvlaminck.notidroid.cloud.core.security.stores.RepositoryBasedTokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

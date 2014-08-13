@@ -10,6 +10,7 @@ repositories {
 
 dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.0'
+    compile 'commons-codec:commons-codec:1.9'
 }
 
 publishing {
