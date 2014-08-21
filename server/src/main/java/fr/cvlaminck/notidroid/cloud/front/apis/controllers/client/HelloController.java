@@ -1,5 +1,7 @@
 package fr.cvlaminck.notidroid.cloud.front.apis.controllers.client;
 
+import fr.cvlaminck.notidroid.cloud.client.api.push.PushMessage;
+import fr.cvlaminck.notidroid.cloud.core.managers.api.push.PushMessageManager;
 import fr.cvlaminck.notidroid.cloud.core.utils.security.SecurityUtils;
 import fr.cvlaminck.notidroid.cloud.data.entities.users.UserEntity;
 import fr.cvlaminck.notidroid.cloud.prvt.api.mq.UserTopicUtils;
@@ -22,7 +24,7 @@ public class HelloController {
     private SecurityUtils securityUtils;
 
     @Autowired
-    private JmsTemplate jmsTemplate;
+    private PushMessageManager pushMessageManager;
 
     private static final Base64 base64 = new Base64(true);
 
@@ -30,11 +32,10 @@ public class HelloController {
     public String hello(OAuth2Authentication authentication) {
         final UserEntity user = securityUtils.getUserFromAuthentication(authentication);
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("hello", "Hello World");
-        jmsTemplate.convertAndSend(UserTopicUtils.getUserTopic(user.getEmail()), map);
+        final PushMessage pushMessage = pushMessageManager.createTextMessage(null, null, "Un texte");
+        pushMessageManager.pushMessageTo(user, pushMessage);
 
-        return user.getId().toString();
+        return Long.toString(pushMessage.getAppId());
     }
 
 }

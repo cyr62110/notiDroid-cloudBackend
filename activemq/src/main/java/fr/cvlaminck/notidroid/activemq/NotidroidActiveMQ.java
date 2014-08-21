@@ -16,7 +16,7 @@ public class NotidroidActiveMQ {
         broker.setAdvisorySupport(false);
 
         broker.addConnector("tcp://localhost:8888?trace=true");
-        broker.addConnector("mqtt://localhost:8989");
+        broker.addConnector("mqtt://0.0.0.0:8989");
 
         broker.setPlugins(new BrokerPlugin[] {
                 notidroidBrokerPlugin()

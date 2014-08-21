@@ -18,26 +18,46 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(EventPushMessage.class)
+        @JsonSubTypes.Type(EventPushMessage.class),
+        @JsonSubTypes.Type(TextPushMessage.class),
 })
 public abstract class PushMessage {
 
     /**
+     * Id used if the message is sent by the cloud backend
+     * instead of an user device.
+     */
+    public static final long FROM_CLOUD_BACKEND = 0;
+
+    /**
+     * Id used as application id for all notidroid clients.
+     * Notidroid client may be mobile, desktop or
+     * web application.
+     */
+    public static final long NOTIDROID_CLIENT_ID = 0;
+
+    /**
      * Id of the device that have sent the message.
      * 0 if the message is sent by the cloudBackend.
+     *
+     * @since 0.2
      */
     private long from;
 
     /**
      * Id of devices that should handle this message.
-     * If null or empty, we consider that all device connected to the message broker
+     * If empty, we consider that all device connected to the message broker
      * should handle the message.
+     *
+     * @since 0.2
      */
     private long[] to = new long[]{};
 
     /**
      * Id of the application that has sent this message.
      * 0 is reserved to notidroid.
+     *
+     * @since 0.2
      */
     private long appId;
 
@@ -57,7 +77,7 @@ public abstract class PushMessage {
     }
 
     public void setTo(long[] to) {
-        this.to = to;
+        this.to = (to != null) ? to : new long[]{};
     }
 
     public long getAppId() {

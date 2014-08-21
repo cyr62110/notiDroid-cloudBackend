@@ -10,7 +10,7 @@ repositories {
 
 dependencies {
     compile 'javax.validation:validation-api:1.0.0.GA'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.0'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.1'
 }
 
 publishing {

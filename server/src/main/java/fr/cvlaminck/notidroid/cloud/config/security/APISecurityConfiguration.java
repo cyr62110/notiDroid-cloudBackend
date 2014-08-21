@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.approval.UserApprovalHandler;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
 @Configuration
@@ -64,6 +65,7 @@ public class APISecurityConfiguration {
             endpoints
                     .tokenStore(tokenStore)
                     .authenticationManager(authenticationManager);
+                    //.tokenServices(DefaultTokenServices) Change this to generate refresh_token... may be worth it.
                     //.pathMapping("/oauth/token", "/api/public/oauth/token");
         }
 

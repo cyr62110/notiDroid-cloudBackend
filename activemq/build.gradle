@@ -20,7 +20,7 @@ dependencies {
     compile 'commons-io:commons-io:2.4'
 
     //We use Jackson2 to deserialize response from the cloudBackend
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.0'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.1'
 
     compile project(':private-api')
 }

@@ -29,8 +29,7 @@ public class UserTopicUtils {
     }
 
     /**
-     * Return the name of the topic prefixed by 'topic://' so it can be used by the JmsTemplate
-     * to send message to this topic.
+     * Return the name of the topic prefixed by 'topic://'.
      *
      * @param userEmailAddress User email address
      * @return Name of the topic

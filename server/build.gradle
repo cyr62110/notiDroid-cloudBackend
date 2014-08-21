@@ -36,7 +36,10 @@ dependencies {
     compile "org.springframework:spring-webmvc:$springVersion"
 
     //We use Jackson2 to serialize our REST resources
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.0'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.1'
+
+    //Push message will also be serialized using Jackson but in BSON
+    compile 'de.undercouch:bson4jackson:2.4.0'
 
     //We use Thymeleaf for our admin side. The client will be developed using Angular.Dart
     //We add also a dialect that will allow us to build master page with Thymeleaf
