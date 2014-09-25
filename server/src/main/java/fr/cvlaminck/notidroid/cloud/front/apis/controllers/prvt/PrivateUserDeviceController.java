@@ -29,6 +29,14 @@ public class PrivateUserDeviceController {
         base64 = new Base64(true);
     }
 
+    /**
+     *
+     * @param userDeviceId
+     * @param base64URLEncodedEmailAddress
+     * @return
+     * @throws InvalidArgumentFormatException
+     * @since 0.2
+     */
     @RequestMapping(value = "/{userDeviceId}/isOwnedBy/{base64URLEncodedEmailAddress}")
     public boolean checkIfUserWithEmailOwnsDevice(@PathVariable long userDeviceId, @PathVariable String base64URLEncodedEmailAddress) throws InvalidArgumentFormatException {
         final String emailAddress;

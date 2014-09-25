@@ -20,6 +20,16 @@ public class UserDeviceController {
     @Autowired
     private UserDeviceManager userDeviceManager;
 
+    /**
+     *
+     * @param userRef
+     * @param userDeviceResource
+     * @return
+     * @throws InvalidResourceFormatException
+     * @throws NoSpecificDeviceManagerForTypeException
+     * @throws CrossUserOperationException
+     * @since 0.1
+     */
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public UserDeviceResource registerDeviceOwnedByUser(@PathVariable String userRef, @RequestBody UserDeviceResource userDeviceResource)
             throws InvalidResourceFormatException, NoSpecificDeviceManagerForTypeException, CrossUserOperationException {

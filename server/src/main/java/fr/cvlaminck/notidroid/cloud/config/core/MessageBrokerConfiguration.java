@@ -45,7 +45,7 @@ public class MessageBrokerConfiguration {
     @Autowired
     public JmsTemplate jmsTemplate(CachingConnectionFactory connectionFactory) {
         final JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory);
-        jmsTemplate.setPubSubDomain(true);
+        jmsTemplate.setPubSubDomain(true); //We publish to topic instead of queue
         return jmsTemplate;
     }
 

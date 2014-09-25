@@ -36,6 +36,7 @@ public class PublicUserController {
      * @throws RegistrationAreClosedException 403 Forbidden - Registration of the user is not allowed on the server
      * @throws ExistingUserWithEmailException 409 Conflict - An account has already been created with the provided email address
      * @throws InvalidResourceFormatException 422 Unprocessable Entity - The resource sent to the server does not follow the format defined in the API
+     * @since 0.1
      */
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public UserResource createUser(@RequestBody UserWithCredentialsResource userWithCredentialsResource) throws ExistingUserWithEmailException, InvalidResourceFormatException, RegistrationAreClosedException {

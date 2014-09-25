@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/public/info")
 public class PublicServerInformationController {
 
+    /**
+     *
+     * @since 0.1
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ServerInformationResource getServerInformation() {
         //TODO : fill with real server information, use config, properties, etc...
