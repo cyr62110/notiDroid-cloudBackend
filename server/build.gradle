@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.springframework:springloaded:1.2.0.RELEASE'
+    }
+}
+
 apply plugin: 'java'
 apply plugin: 'war'
 
@@ -36,15 +45,10 @@ dependencies {
     compile "org.springframework:spring-webmvc:$springVersion"
 
     //We use Jackson2 to serialize our REST resources
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.1'
+    compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
 
     //Push message will also be serialized using Jackson but in BSON
     compile 'de.undercouch:bson4jackson:2.4.0'
-
-    //We use Thymeleaf for our admin side. The client will be developed using Angular.Dart
-    //We add also a dialect that will allow us to build master page with Thymeleaf
-    compile 'org.thymeleaf:thymeleaf-spring4:2.1.3.RELEASE'
-    compile 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:1.2.4'
 
     //We use an embedded Neo4J for the storage of user, applications, relations
     compile 'org.neo4j:neo4j:2.0.+'
@@ -62,10 +66,6 @@ dependencies {
     compile 'org.springframework.security.oauth:spring-security-oauth2:2.0.2.RELEASE'
     compile 'org.springframework.security:spring-security-core:3.2.4.RELEASE'
     compile 'org.springframework.security:spring-security-config:3.2.4.RELEASE'
-
-    //We will also use bootstrap 3 to make a nice UI for the admin side
-    compile 'org.webjars:jquery:1.11.0'
-    compile 'org.webjars:bootstrap:3.1.1'
 
     //API and Implementation of the Java Validation API for validating data coming from client implementations.
     runtime 'javax.validation:validation-api:1.0.0.GA'
@@ -85,10 +85,10 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.3.2'
 
     //Commons-Validator to validate email addresses and more
-    compile 'commons-validator:commons-validator:1.4.0'
+    compile "commons-validator:commons-validator:$commonsValidatorVersion"
 
     //Commons-IO for manipulating files
-    compile 'commons-io:commons-io:2.4'
+    compile "commons-io:commons-io:$commonsIOVersion"
 
     //Some librairies used for logging purpose
     compile 'org.slf4j:slf4j-api:1.7.7'
@@ -100,8 +100,10 @@ dependencies {
     testCompile "org.springframework:spring-test:$springVersion"
     testCompile 'junit:junit:4.11'
 
-    compile project(':client-api')
-    compile project(':private-api')
+    compile project(':api:admin')
+    compile project(':api:client')
+    compile project(':api:private')
+
     compile project(':re-mapper')
 
 }

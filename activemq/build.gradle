@@ -13,14 +13,14 @@ dependencies {
 
     runtime 'org.fusesource.mqtt-client:mqtt-client:1.10'
 
-    compile 'commons-validator:commons-validator:1.4.0'
+    compile "commons-validator:commons-validator:$commonsValidatorVersion"
 
-    compile 'commons-codec:commons-codec:1.9'
+    compile "commons-codec:commons-codec:$commonsCodecVersion"
 
-    compile 'commons-io:commons-io:2.4'
+    compile "commons-io:commons-io:$commonsIOVersion"
 
     //We use Jackson2 to deserialize response from the cloudBackend
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.1'
+    compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
 
-    compile project(':private-api')
+    compile project(':api:private')
 }

@@ -120,7 +120,7 @@ public class RepositoryBasedTokenStore
     public OAuth2AccessToken getAccessToken(OAuth2Authentication authentication) {
         final String authKey = authenticationKeyGenerator.extractKey(authentication);
         final TokenEntity tokenEntity = tokenRepository.findByAuthenticationKey(authKey);
-        if(tokenEntity != null && tokenEntity instanceof AccessTokenEntity)
+        if (tokenEntity != null && tokenEntity instanceof AccessTokenEntity)
             return (OAuth2AccessToken) SerializationUtils.deserialize(tokenEntity.getToken());
         else
             return null;
@@ -129,8 +129,8 @@ public class RepositoryBasedTokenStore
     @Override
     public Collection<OAuth2AccessToken> findTokensByClientIdAndUserName(String clientId, String userName) {
         final Collection<OAuth2AccessToken> tokens = new ArrayList<>();
-        for(TokenEntity tokenEntity : tokenRepository.findByClientIdAndUsername(clientId, userName)) {
-            if(tokenEntity instanceof AccessTokenEntity) {
+        for (TokenEntity tokenEntity : tokenRepository.findByClientIdAndUsername(clientId, userName)) {
+            if (tokenEntity instanceof AccessTokenEntity) {
                 final OAuth2AccessToken accessToken = (OAuth2AccessToken) SerializationUtils.deserialize(tokenEntity.getToken());
                 tokens.add(accessToken);
             }
@@ -141,8 +141,8 @@ public class RepositoryBasedTokenStore
     @Override
     public Collection<OAuth2AccessToken> findTokensByClientId(String clientId) {
         final Collection<OAuth2AccessToken> tokens = new ArrayList<>();
-        for(TokenEntity tokenEntity : tokenRepository.findByClientId(clientId)) {
-            if(tokenEntity instanceof AccessTokenEntity) {
+        for (TokenEntity tokenEntity : tokenRepository.findByClientId(clientId)) {
+            if (tokenEntity instanceof AccessTokenEntity) {
                 final OAuth2AccessToken accessToken = (OAuth2AccessToken) SerializationUtils.deserialize(tokenEntity.getToken());
                 tokens.add(accessToken);
             }

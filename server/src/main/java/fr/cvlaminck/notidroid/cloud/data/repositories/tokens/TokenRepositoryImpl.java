@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.query.Query;
 /**
  * Implementation of custom methods of the repository described in
  * the TokenRepositoryCustom interface.
- *
+ * <p>
  * /!\ The class containing the implementation must be named according
  * to the repository interface not the extension interface. So the name
  * of the class must be : {Repository name} + Impl.

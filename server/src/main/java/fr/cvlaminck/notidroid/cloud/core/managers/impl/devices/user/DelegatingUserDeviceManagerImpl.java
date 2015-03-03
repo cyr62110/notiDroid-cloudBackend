@@ -52,7 +52,7 @@ public class DelegatingUserDeviceManagerImpl
         final UserEntity owner = securityUtils.checkIfAuthenticatedUserIsDesignedByRef(ownerUserRef);
         //Before delegating the operation, we validate the resource using the validation framework.
         final Set<ConstraintViolation<UserDeviceResource>> constraintViolations = validator.validate(deviceResource);
-        if(!constraintViolations.isEmpty())
+        if (!constraintViolations.isEmpty())
             throw new InvalidResourceFormatException(constraintViolations);
         //Then we delegate the operation
         return getSpecificDeviceManagerForResource(deviceResource).registerDeviceOwnedByUser(owner, deviceResource);

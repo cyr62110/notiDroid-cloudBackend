@@ -1,7 +1,7 @@
 package fr.cvlaminck.notidroid.cloud.core.utils;
 
-import fr.cvlaminck.remapper.api.ResourceEntityMapper;
-import fr.cvlaminck.remapper.impl.DefaultResourceEntityMapper;
+import fr.cvlaminck.remapper.api.Object2ObjectMapper;
+import fr.cvlaminck.remapper.impl.DefaultObject2ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 public class ResourceEntityMapperBean {
 
     @Bean
-    public ResourceEntityMapper resourceEntityMapper() {
-        final ResourceEntityMapper resourceEntityMapper = new DefaultResourceEntityMapper();
+    public Object2ObjectMapper resourceEntityMapper() {
+        final Object2ObjectMapper object2ObjectMapper = new DefaultObject2ObjectMapper();
         //TODO : configure the re-mapper here
-        return resourceEntityMapper;
+        return object2ObjectMapper;
     }
 
 

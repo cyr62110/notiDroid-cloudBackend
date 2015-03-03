@@ -4,7 +4,7 @@ package fr.cvlaminck.notidroid.cloud.data.entities.notifications.styles.android;
  *
  */
 public class NoStyleNotificationEntity
-    extends AndroidNotificationEntity {
+        extends AndroidNotificationEntity {
 
     /**
      * This is a small piece of additional text as supplied to setContentInfo(CharSequence).

@@ -1,7 +1,8 @@
 package fr.cvlaminck.remapper.fieldconverters;
 
-import fr.cvlaminck.remapper.impl.fieldconverters.BasicFieldConverter;
-import fr.cvlaminck.remapper.impl.fieldconverters.object.StringFieldConverter;
+import fr.cvlaminck.remapper.api.converters.ObjectConverter;
+import fr.cvlaminck.remapper.impl.converters.BasicObjectConverter;
+import fr.cvlaminck.remapper.impl.converters.object.StringObjectConverter;
 import fr.cvlaminck.remapper.objects.fieldconverters.ObjectFullOfObjectFields;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Test;
@@ -15,32 +16,13 @@ public class DefaultObjectFieldConverterTests {
     private final static String STRING_TEST_VALUE = "hello";
 
     @Test
-    public void testShouldOutputNullIfSourceIsNull() throws Exception {
-        BasicFieldConverter converter = new StringFieldConverter();
-
-        ObjectFullOfObjectFields object = new ObjectFullOfObjectFields();
-        Field src = FieldUtils.getField(ObjectFullOfObjectFields.class, "stringSrc", true);
-        Field dst = FieldUtils.getField(ObjectFullOfObjectFields.class, "stringDst", true);
-        object.setStringSrc(null);
-        object.setStringDst(STRING_TEST_VALUE);
-
-        converter.convert(object, src, object, dst);
-
-        assertNull(object.getStringDst());
-    }
-
-    @Test
     public void testShouldConvertString() throws Exception {
-        StringFieldConverter converter = new StringFieldConverter();
+        StringObjectConverter converter = new StringObjectConverter();
 
-        ObjectFullOfObjectFields object = new ObjectFullOfObjectFields();
-        Field src = FieldUtils.getField(ObjectFullOfObjectFields.class, "stringSrc", true);
-        Field dst = FieldUtils.getField(ObjectFullOfObjectFields.class, "stringDst", true);
-        object.setStringSrc(STRING_TEST_VALUE);
+        String source = "Hello World";
+        String destination = (String)converter.convert(source, String.class, String.class);
 
-        converter.convert(object, src, object, dst);
-
-        assertEquals(object.getStringSrc(), object.getStringDst());
-        assertNotSame(object.getStringSrc(), object.getStringDst());
+        assertEquals(source, destination);
+        assertNotSame(source, destination);
     }
 }

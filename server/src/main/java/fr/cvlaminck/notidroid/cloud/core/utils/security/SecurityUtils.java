@@ -1,7 +1,6 @@
 package fr.cvlaminck.notidroid.cloud.core.utils.security;
 
 import fr.cvlaminck.notidroid.cloud.core.exceptions.users.CrossUserOperationException;
-import fr.cvlaminck.notidroid.cloud.core.exceptions.users.UserNotFoundException;
 import fr.cvlaminck.notidroid.cloud.core.managers.api.users.UserManager;
 import fr.cvlaminck.notidroid.cloud.data.entities.users.UserEntity;
 import org.apache.commons.lang3.StringUtils;
@@ -41,9 +40,9 @@ public class SecurityUtils {
      */
     public UserEntity checkIfAuthenticatedUserIsDesignedByRef(String userRef) throws CrossUserOperationException {
         final UserEntity authenticatedUser = getAuthenticatedUser();
-        if(authenticatedUser == null)
+        if (authenticatedUser == null)
             throw new IllegalStateException("No user found in the security context. You should check that this method is only called in method protected using Spring Security.");
-        if(!("me".equals(userRef)) && !authenticatedUser.getId().toString().equals(userRef))
+        if (!("me".equals(userRef)) && !authenticatedUser.getId().toString().equals(userRef))
             throw new CrossUserOperationException();
         return authenticatedUser;
     }

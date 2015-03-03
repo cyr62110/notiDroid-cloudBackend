@@ -37,7 +37,6 @@ public class NotificationEntity {
     private Collection<ActionEntity> actions = null;
 
 
-
     //Getters and setters
 
     public String getId() {

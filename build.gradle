@@ -1,0 +1,8 @@
+allprojects {
+    ext {
+        jacksonVersion = '2.4.1'
+        commonsCodecVersion = '1.9'
+        commonsIOVersion = '2.4'
+        commonsValidatorVersion = '1.4.0'
+    }
+}

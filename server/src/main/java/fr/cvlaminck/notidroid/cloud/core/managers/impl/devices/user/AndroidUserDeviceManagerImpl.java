@@ -10,7 +10,7 @@ import fr.cvlaminck.notidroid.cloud.data.entities.devices.user.android.AndroidUs
 import fr.cvlaminck.notidroid.cloud.data.entities.users.UserEntity;
 import fr.cvlaminck.notidroid.cloud.data.repositories.devices.user.UserDeviceRepository;
 import fr.cvlaminck.notidroid.cloud.data.repositories.extensions.MergingGraphRepository;
-import fr.cvlaminck.remapper.api.ResourceEntityMapper;
+import fr.cvlaminck.remapper.api.Object2ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +26,7 @@ public class AndroidUserDeviceManagerImpl
     private UserDeviceRepository userDeviceRepository;
 
     @Autowired
-    private ResourceEntityMapper resourceEntityMapper;
+    private Object2ObjectMapper object2ObjectMapper;
 
     @Override
     public boolean doesSupportResourceType(Class<? extends UserDeviceResource> deviceResourceType) {
@@ -43,9 +43,9 @@ public class AndroidUserDeviceManagerImpl
     public UserDeviceResource registerDeviceOwnedByUser(UserEntity owner, UserDeviceResource deviceResource) {
         //First, we map our resource in two entity :
         //The part with info about the hardware
-        UserDeviceEntity userDevice = resourceEntityMapper.convertToEntity((AndroidUserDeviceResource) deviceResource, AndroidUserDeviceResource.class, AndroidUserDeviceEntity.class);
+        UserDeviceEntity userDevice = object2ObjectMapper.convertToEntity((AndroidUserDeviceResource) deviceResource, AndroidUserDeviceResource.class, AndroidUserDeviceEntity.class);
         //And the part with info about the specific device that the user owns
-        DeviceEntity deviceEntity = resourceEntityMapper.convertToEntity((AndroidUserDeviceResource) deviceResource, AndroidUserDeviceResource.class, AndroidDeviceEntity.class);
+        DeviceEntity deviceEntity = object2ObjectMapper.convertToEntity((AndroidUserDeviceResource) deviceResource, AndroidUserDeviceResource.class, AndroidDeviceEntity.class);
 
         //Then, we merge information about the hardware
         deviceEntity = mergingGraphRepository.merge(deviceEntity);

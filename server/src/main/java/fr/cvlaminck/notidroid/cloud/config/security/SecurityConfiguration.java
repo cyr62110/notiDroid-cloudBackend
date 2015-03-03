@@ -17,7 +17,6 @@ import org.springframework.security.oauth2.provider.approval.TokenStoreUserAppro
 import org.springframework.security.oauth2.provider.approval.UserApprovalHandler;
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
 import java.util.Collections;
 
@@ -27,7 +26,6 @@ import java.util.Collections;
  */
 @Configuration
 @Import({
-        AdminSecurityConfiguration.class,
         APISecurityConfiguration.class
 })
 @ComponentScan(basePackages = {

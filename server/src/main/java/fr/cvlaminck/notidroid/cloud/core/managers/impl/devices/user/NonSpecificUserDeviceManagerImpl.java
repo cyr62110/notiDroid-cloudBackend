@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Component(value = "non-specific")
 public class NonSpecificUserDeviceManagerImpl
-    implements UserDeviceManager {
+        implements UserDeviceManager {
     private static final String UNSUPPORTED_OPERATION_MESSAGE = "This operation is device-specific";
 
     @Autowired

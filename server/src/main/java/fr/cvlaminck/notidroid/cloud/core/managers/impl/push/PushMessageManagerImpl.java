@@ -20,7 +20,7 @@ import javax.annotation.PostConstruct;
 
 @Component
 public class PushMessageManagerImpl
-    implements PushMessageManager {
+        implements PushMessageManager {
 
     @Autowired
     private JmsTemplate jmsTemplate;
@@ -68,7 +68,7 @@ public class PushMessageManagerImpl
      * Return the topic reserved to clients connected with provider user credentials.
      */
     private String getUserSpecificTopic(UserEntity user) {
-        if(user.getEmail() == null || user.getEmail().length() == 0)
+        if (user.getEmail() == null || user.getEmail().length() == 0)
             throw new IllegalArgumentException("User with id " + user.getId() + " does not have any email address");
         return UserTopicUtils.getUserTopic(user.getEmail());
     }
@@ -76,10 +76,10 @@ public class PushMessageManagerImpl
     private void createMessage(PushMessage pushMessage, ApplicationEntity app, DeviceEntity[] targetedDevices) {
         pushMessage.setAppId((app != null) ? app.getId() : PushMessage.NOTIDROID_CLIENT_ID);
         final long[] targetedDeviceIds;
-        if(targetedDevices != null) {
+        if (targetedDevices != null) {
             targetedDeviceIds = new long[targetedDevices.length];
             int i = 0;
-            for(DeviceEntity device : targetedDevices)
+            for (DeviceEntity device : targetedDevices)
                 targetedDeviceIds[i++] = device.getId();
         } else
             targetedDeviceIds = new long[]{};

@@ -9,7 +9,7 @@ public interface MergingGraphRepository<T> {
     /**
      * Perform a MERGE on the entity and updates property values from
      * using entity field values.
-     *
+     * <p>
      * The field used to merge the entity must be annotated @MergeIndex and @Indexed.
      *
      * @param entity Entity to merge

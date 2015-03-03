@@ -2,10 +2,13 @@ package fr.cvlaminck.notidroid.cloud;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
+import org.apache.catalina.filters.CorsFilter;
 import org.apache.catalina.startup.Tomcat;
+import org.apache.tomcat.util.descriptor.web.FilterDef;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import java.io.File;
 import java.io.IOException;

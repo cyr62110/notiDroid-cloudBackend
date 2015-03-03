@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
  * API. The argument can be a path variable or a query parameter.
  */
 public class InvalidArgumentFormatException
-    extends NotidroidException {
+        extends NotidroidException {
 
     public InvalidArgumentFormatException(String message) {
         super(HttpStatus.BAD_REQUEST, message);

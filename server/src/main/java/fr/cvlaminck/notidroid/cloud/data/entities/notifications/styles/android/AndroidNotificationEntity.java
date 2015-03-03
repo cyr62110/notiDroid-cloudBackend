@@ -6,7 +6,7 @@ import fr.cvlaminck.notidroid.cloud.data.entities.notifications.NotificationEnti
  *
  */
 public class AndroidNotificationEntity
-    extends NotificationEntity {
+        extends NotificationEntity {
 
     /**
      * Specifies which values should be taken from the defaults.

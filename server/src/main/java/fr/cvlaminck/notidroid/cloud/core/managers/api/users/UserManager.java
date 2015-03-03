@@ -18,13 +18,22 @@ public interface UserManager {
      */
     public UserEntity findUserByEmail(String email);
 
+    public int getNumberOfAdministrator();
+
     /**
-     * Register a new user in the system.
+     * Register a new administrator.
+     * When the administrator is created, all existing permissions are granted to him.
+     *
+     * @return An user resource with this id field completed.
+     */
+    public UserResource registerNewAdministrator(UserWithCredentialsResource userWithCredentialsResource) throws  ExistingUserWithEmailException, InvalidResourceFormatException;
+
+    /**
+     * Register a new user.
      * It will also send an email to this user to validate his email address. The user must validate
      * his email address before logging in and starting to use notidroid cloud services.
      *
-     * @param userWithCredentials The user with its credentials.
-     * @return The user with its id filled in.
+     * @return An user resource with this id field completed.
      */
     public UserResource registerNewUser(UserWithCredentialsResource userWithCredentials) throws ExistingUserWithEmailException, InvalidResourceFormatException, RegistrationAreClosedException;
 

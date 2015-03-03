@@ -12,6 +12,7 @@
         "activeMQ" : {
             "username" : "active-mq",
             "password" : "password",
+            "role" : "mq";
             "serviceLocation" : "localhost"
         }
     ],

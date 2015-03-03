@@ -48,8 +48,9 @@ public class ExternalServiceClientDetails
     @Override
     public Set<String> getScope() {
         final Set<String> scopes = new HashSet<>();
-        //This scope let this external service access the private API.
-        scopes.add("private-api");
+        scopes.add("service-api");
+        //TODO: Each service has its own scope allowing it to access some endpoints exposed through the Service API.
+        scopes.add("mq");
         return scopes;
     }
 

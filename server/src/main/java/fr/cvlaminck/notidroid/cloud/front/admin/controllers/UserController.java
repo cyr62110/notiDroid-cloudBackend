@@ -1,10 +1,12 @@
 package fr.cvlaminck.notidroid.cloud.front.admin.controllers;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller(value = "adminUserController")
-@RequestMapping("/admin/users")
+@RestController
+@RequestMapping("/api/admin/users")
 public class UserController {
+
+
 
 }

@@ -32,7 +32,7 @@ public class ExternalServiceUserDetails
         authorities.add(new SimpleGrantedAuthority("ROLE_EXTERNAL_SERVICE"));
         //Then we also add the service specific authority if defined
         GrantedAuthority serviceSpecificAuthority = externalServiceRuntimeConfiguration.getExternalServiceSpecificGrantedAuthority();
-        if(serviceSpecificAuthority != null)
+        if (serviceSpecificAuthority != null)
             authorities.add(serviceSpecificAuthority);
         return authorities;
     }

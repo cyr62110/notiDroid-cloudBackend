@@ -4,13 +4,16 @@ import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 /**
  * An user of the notiDroid cloudbackend.
  * Administrator are also considered as user.
  */
-@NodeEntity
+
+@NodeEntity()
 public class UserEntity {
 
     @GraphId
@@ -39,7 +42,7 @@ public class UserEntity {
     private String password;
 
     /**
-     * When this user has created its account on the backend.
+     * When this user has created its account.
      */
     private Date accountCreationDate;
 
@@ -55,10 +58,21 @@ public class UserEntity {
      */
     private boolean hasValidatedHisEmail;
 
+    /**
+     * Permissions determine which kind of information can be viewed/modified by
+     * this administrator.
+     */
+    private Collection<PermissionEntity> permissions;
+
     public UserEntity() {
         accountCreationDate = new Date();
         hasValidatedHisEmail = false;
         emailValidationDate = null;
+        permissions = new ArrayList<>();
+    }
+
+    public boolean isAdministrator() {
+        return permissions.contains(PermissionEntity.ACCESS_ADMIN_API);
     }
 
     public Long getId() {
@@ -115,5 +129,9 @@ public class UserEntity {
 
     public void setHasValidatedHisEmail(boolean hasValidatedHisEmail) {
         this.hasValidatedHisEmail = hasValidatedHisEmail;
+    }
+
+    public Collection<PermissionEntity> getPermissions() {
+        return permissions;
     }
 }

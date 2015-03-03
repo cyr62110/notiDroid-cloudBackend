@@ -24,7 +24,7 @@ public interface UserRepository extends GraphRepository<UserEntity> {
      * Number of administrator already registered
      * in the database.
      */
-    @Query("MATCH (n:AdministratorEntity) RETURN count(n)")
+    @Query("MATCH (n:User) WHERE filter(x in n.permissions WHERE x = 'ACCESS_ADMIN_API') return count(n)")
     public long getNumberOfAdministrator();
 
 }
