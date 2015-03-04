@@ -1,5 +1,6 @@
-package fr.cvlaminck.remapper.impl.converters.object;
+package fr.cvlaminck.remapper.impl.converters.collection;
 
+import fr.cvlaminck.remapper.impl.converters.collection.CollectionObjectConverter;
 import fr.cvlaminck.remapper.impl.converters.containers.DefaultObjectConvertersContainer;
 import org.junit.Test;
 

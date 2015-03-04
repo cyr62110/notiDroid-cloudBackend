@@ -2,15 +2,13 @@ package fr.cvlaminck.remapper.impl.converters.object;
 
 import fr.cvlaminck.remapper.api.Object2ObjectMapper;
 import fr.cvlaminck.remapper.api.converters.ObjectConverter;
-import fr.cvlaminck.remapper.api.exceptions.runtime.FieldConversionFailedException;
-import org.apache.commons.lang3.reflect.FieldUtils;
-
-import java.lang.reflect.Field;
+import fr.cvlaminck.remapper.impl.converters.AbstractObjectConverter;
 
 /**
  * Field converter based on an Object2ObjectMapper. It converts an Object into another Object
  */
 public class Object2ObjectMapperBasedObjectConverter
+        extends AbstractObjectConverter
         implements ObjectConverter {
 
     private Object2ObjectMapper object2ObjectMapper;

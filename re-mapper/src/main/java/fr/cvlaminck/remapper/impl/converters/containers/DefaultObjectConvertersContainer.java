@@ -3,11 +3,11 @@ package fr.cvlaminck.remapper.impl.converters.containers;
 import fr.cvlaminck.remapper.api.Object2ObjectMapper;
 import fr.cvlaminck.remapper.api.converters.ObjectConverter;
 import fr.cvlaminck.remapper.api.converters.containers.ObjectConvertersContainer;
-import fr.cvlaminck.remapper.impl.converters.object.CollectionObjectConverter;
+import fr.cvlaminck.remapper.impl.converters.collection.CollectionObjectConverter;
 import fr.cvlaminck.remapper.impl.converters.object.EnumObjectConverter;
 import fr.cvlaminck.remapper.impl.converters.object.Object2ObjectMapperBasedObjectConverter;
-import fr.cvlaminck.remapper.impl.converters.object.boxed.BoxedPrimitiveObjectConverters;
 import fr.cvlaminck.remapper.impl.converters.object.StringObjectConverter;
+import fr.cvlaminck.remapper.impl.converters.object.boxed.BoxedPrimitiveObjectConverters;
 import fr.cvlaminck.remapper.impl.converters.primitive.PrimitiveObjectConverters;
 
 import java.util.ArrayList;

@@ -1,12 +1,14 @@
 package fr.cvlaminck.remapper.impl.converters.object;
 
 import fr.cvlaminck.remapper.api.converters.ObjectConverter;
+import fr.cvlaminck.remapper.impl.converters.AbstractObjectConverter;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class EnumObjectConverter
-    implements ObjectConverter {
+        extends AbstractObjectConverter
+        implements ObjectConverter {
 
     @Override
     public Class<?> getSourceType() {

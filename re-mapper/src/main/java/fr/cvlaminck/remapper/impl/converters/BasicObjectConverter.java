@@ -7,6 +7,7 @@ import fr.cvlaminck.remapper.api.converters.ObjectConverter;
  * All ObjectConverters that only do deep copy must inherits from this class.
  */
 public abstract class BasicObjectConverter
+        extends AbstractObjectConverter
         implements ObjectConverter {
 
     private Class<?> convertedType = null;

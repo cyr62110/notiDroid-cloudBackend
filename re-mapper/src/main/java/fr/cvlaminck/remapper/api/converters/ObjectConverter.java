@@ -1,5 +1,7 @@
 package fr.cvlaminck.remapper.api.converters;
 
+import java.lang.reflect.Field;
+
 /**
  * During the mapping all value stored in the source must be copied to the destination.
  * Sometimes types are not the same between the field in the source object and the destination object,
@@ -24,6 +26,10 @@ public interface ObjectConverter {
      */
     public boolean supports(Class<?> srcType, Class<?> dstType);
 
+    public boolean supports(Field srcField, Field dstField);
+
     public Object convert(Object src, Class<?> srcType, Class<?> dstType);
+
+    public Object convert(Object src, Field srcField, Field dstField);
 
 }

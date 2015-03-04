@@ -1,8 +1,8 @@
 package fr.cvlaminck.remapper.impl.mappings;
 
 import fr.cvlaminck.remapper.api.converters.ObjectConverter;
-import fr.cvlaminck.remapper.api.converters.strategies.ObjectConverterSelectionStrategy;
 import fr.cvlaminck.remapper.api.converters.containers.ObjectConvertersContainer;
+import fr.cvlaminck.remapper.api.converters.strategies.ObjectConverterSelectionStrategy;
 import fr.cvlaminck.remapper.api.mappings.Object2ObjectFieldMapping;
 import fr.cvlaminck.remapper.api.mappings.Object2ObjectMapping;
 import org.apache.commons.lang3.reflect.FieldUtils;

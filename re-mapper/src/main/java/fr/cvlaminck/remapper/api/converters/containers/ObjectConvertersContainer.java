@@ -1,6 +1,5 @@
 package fr.cvlaminck.remapper.api.converters.containers;
 
-import fr.cvlaminck.remapper.api.Object2ObjectMapper;
 import fr.cvlaminck.remapper.api.converters.ObjectConverter;
 
 /**

@@ -1,7 +1,7 @@
 package fr.cvlaminck.remapper.api;
 
-import fr.cvlaminck.remapper.api.converters.strategies.ObjectConverterSelectionStrategy;
 import fr.cvlaminck.remapper.api.converters.containers.ObjectConvertersContainer;
+import fr.cvlaminck.remapper.api.converters.strategies.ObjectConverterSelectionStrategy;
 import fr.cvlaminck.remapper.api.mappings.caches.Object2ObjectMappingCache;
 
 /**

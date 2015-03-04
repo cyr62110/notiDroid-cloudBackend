@@ -1,7 +1,7 @@
 package fr.cvlaminck.remapper.impl.converters.containers;
 
 import fr.cvlaminck.remapper.api.Object2ObjectMapper;
-import fr.cvlaminck.remapper.impl.converters.object.CollectionObjectConverter;
+import fr.cvlaminck.remapper.impl.converters.collection.CollectionObjectConverter;
 import fr.cvlaminck.remapper.impl.converters.object.Object2ObjectMapperBasedObjectConverter;
 import fr.cvlaminck.remapper.impl.converters.object.boxed.BoxedPrimitiveObjectConverter;
 import fr.cvlaminck.remapper.impl.converters.primitive.PrimitiveObjectConverter;

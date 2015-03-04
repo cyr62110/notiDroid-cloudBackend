@@ -1,4 +1,4 @@
-package fr.cvlaminck.remapper.impl.converters.object;
+package fr.cvlaminck.remapper.impl.converters.collection;
 
 import fr.cvlaminck.remapper.api.converters.ObjectConverter;
 import fr.cvlaminck.remapper.api.converters.containers.ObjectConvertersContainer;
@@ -7,6 +7,7 @@ import fr.cvlaminck.remapper.api.exceptions.runtime.ObjectConversionFailedExcept
 import fr.cvlaminck.remapper.impl.converters.strategies.CISISCObjectConverterSelectionStrategy;
 import org.apache.commons.lang3.reflect.ConstructorUtils;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -39,12 +40,18 @@ public class CollectionObjectConverter
     @Override
     public boolean supports(Class<?> srcType, Class<?> dstType) {
         //First, both types must inherits from Collection
-        if(!Collection.class.isAssignableFrom(srcType) || !Collection.class.isAssignableFrom(dstType))
+        if (!Collection.class.isAssignableFrom(srcType) || !Collection.class.isAssignableFrom(dstType))
             return false;
         //Second, the source type MUST be the same as or a superclass/superinterface of the destination one.
-        if(!dstType.isAssignableFrom(srcType))
+        if (!dstType.isAssignableFrom(srcType))
             return false;
         return true;
+    }
+
+    @Override
+    public boolean supports(Field srcField, Field dstField) {
+        //Test if the generic type in the dst is assignable from the one in the source
+        return false; //FIXME Implements the logic here
     }
 
     @Override
@@ -62,11 +69,16 @@ public class CollectionObjectConverter
         return dest;
     }
 
+    @Override
+    public Object convert(Object src, Field srcField, Field dstField) {
+        return null;
+    }
+
     private Collection<Object> instantiateNewCollection(Collection<Object> src) throws IllegalAccessException, InstantiationException, InvocationTargetException {
         Collection<Object> dest = null;
         //First, we try to find a constructor using capacity to reduce the number of memory allocation
         dest = instantiateNewCollectionUsingCapacity(src);
-        if(dest == null) {
+        if (dest == null) {
             dest = instantiateNewCollectionUsingDefaultConstructor(src);
         }
         return dest;
@@ -90,16 +102,16 @@ public class CollectionObjectConverter
     }
 
     private void convertObjectsInSource(Collection<Object> src, Collection<Object> dest) {
-        if(src.isEmpty())
+        if (src.isEmpty())
             return;
         Map<Class<?>, ObjectConverter> converters = new HashMap<Class<?>, ObjectConverter>();
-        for(Object o : src) {
+        for (Object o : src) {
             ObjectConverter converter = converters.get(o.getClass());
-            if(converter == null) {
+            if (converter == null) {
                 converter = selectionStrategy.getConverterFrom(container, o.getClass(), o.getClass());
                 converters.put(o.getClass(), converter);
             }
-            if(converter != null) {
+            if (converter != null) {
                 dest.add(converter.convert(o, o.getClass(), o.getClass()));
             } else {
                 //TODO : What should we do, ignore the value or returns an empty collection ?

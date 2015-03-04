@@ -1,8 +1,8 @@
 package fr.cvlaminck.remapper.impl;
 
 import fr.cvlaminck.remapper.api.Object2ObjectMapper;
-import fr.cvlaminck.remapper.api.converters.strategies.ObjectConverterSelectionStrategy;
 import fr.cvlaminck.remapper.api.converters.containers.ObjectConvertersContainer;
+import fr.cvlaminck.remapper.api.converters.strategies.ObjectConverterSelectionStrategy;
 import fr.cvlaminck.remapper.api.exceptions.runtime.DstObjectCannotBeInstantiatedException;
 import fr.cvlaminck.remapper.api.mappings.Object2ObjectFieldMapping;
 import fr.cvlaminck.remapper.api.mappings.Object2ObjectMapping;
@@ -112,7 +112,7 @@ public class DefaultObject2ObjectMapper
     }
 
     private DefaultObject2ObjectMappingBuilder getMappingBuilder() {
-        if(mappingBuilder == null) {
+        if (mappingBuilder == null) {
             mappingBuilder = new DefaultObject2ObjectMappingBuilder(objectConvertersContainer, objectConverterSelectionStrategy);
         }
         return mappingBuilder;

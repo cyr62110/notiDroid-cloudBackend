@@ -7,7 +7,7 @@ import fr.cvlaminck.remapper.api.converters.ObjectConverter;
  * object.
  */
 public class ObjectConversionFailedException
-    extends Object2ObjectMappingRuntimeException {
+        extends Object2ObjectMappingRuntimeException {
 
     private static final String MESSAGE = "'%s' failed to convert '%s'";
 
