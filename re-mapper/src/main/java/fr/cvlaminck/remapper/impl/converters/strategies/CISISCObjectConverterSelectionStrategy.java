@@ -3,9 +3,9 @@ package fr.cvlaminck.remapper.impl.converters.strategies;
 import fr.cvlaminck.remapper.api.converters.ObjectConverter;
 import fr.cvlaminck.remapper.api.converters.containers.ObjectConvertersContainer;
 import fr.cvlaminck.remapper.api.converters.strategies.ObjectConverterSelectionStrategy;
+import fr.cvlaminck.remapper.impl.utils.CISISCIterator;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.Iterator;
 
 /**
  * Default strategy to select object mappers that will be used for a mapping.
@@ -25,18 +25,9 @@ public class CISISCObjectConverterSelectionStrategy
     @Override
     public ObjectConverter getConverterFrom(ObjectConvertersContainer container, Class<?> srcType, Class<?> dstType) {
         ObjectConverter objectConverter = null;
-        Deque<Class<?>> types = new ArrayDeque<>();
-        types.addFirst(srcType);
-        while (objectConverter == null && !types.isEmpty()) {
-            Class<?> type = types.removeFirst();
-            objectConverter = container.getConverterFor(type, dstType);
-            if (type != Object.class && objectConverter == null) {
-                if (type.getSuperclass() != null)
-                    types.addFirst(type.getSuperclass());
-                for (Class<?> interfaceType : type.getInterfaces()) {
-                    types.addFirst(interfaceType);
-                }
-            }
+        Iterator<Class<?>> iterator = CISISCIterator.forClass(srcType);
+        while (iterator.hasNext() && objectConverter == null) {
+            objectConverter = container.getConverterFor(iterator.next(), dstType);
         }
         return objectConverter;
     }
