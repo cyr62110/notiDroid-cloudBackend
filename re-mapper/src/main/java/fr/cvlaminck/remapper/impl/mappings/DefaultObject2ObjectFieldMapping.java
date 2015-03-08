@@ -1,6 +1,7 @@
 package fr.cvlaminck.remapper.impl.mappings;
 
 import fr.cvlaminck.remapper.api.converters.ObjectConverter;
+import fr.cvlaminck.remapper.api.exceptions.ObjectConversionFailedException;
 import fr.cvlaminck.remapper.api.exceptions.runtime.FieldConversionFailedException;
 import fr.cvlaminck.remapper.api.mappings.Object2ObjectFieldMapping;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -47,11 +48,15 @@ class DefaultObject2ObjectFieldMapping
             Object srcFieldValue = FieldUtils.readField(fieldInSrcType, src, true);
             Object dstFieldValue = null;
             if (srcFieldValue != null) {
-                dstFieldValue = objectConverter.convert(srcFieldValue, fieldInSrcType.getType(), fieldInDstType.getType());
+                dstFieldValue = objectConverter.convert(srcFieldValue, fieldInSrcType, fieldInDstType);
             }
             FieldUtils.writeField(fieldInDstType, dst, dstFieldValue, true);
         } catch (IllegalAccessException e) {
             throw new FieldConversionFailedException(fieldInSrcType, fieldInDstType, e);
+        } catch (ObjectConversionFailedException e) {
+            e.printStackTrace();
+            //FIXME : Create an object to accumulate all exceptions retrieved from the converter so the dev can know if the conversion is complete or not.
+            //For now, we ignore
         }
     }
 

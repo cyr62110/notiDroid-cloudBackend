@@ -1,6 +1,7 @@
 package fr.cvlaminck.remapper.impl.converters;
 
 import fr.cvlaminck.remapper.api.converters.ObjectConverter;
+import fr.cvlaminck.remapper.api.exceptions.ObjectConversionFailedException;
 
 import java.lang.reflect.Field;
 
@@ -13,12 +14,7 @@ public abstract class AbstractObjectConverter
         implements ObjectConverter {
 
     @Override
-    public boolean supports(Field srcField, Field dstField) {
-        return supports(srcField.getType(), dstField.getType());
-    }
-
-    @Override
-    public Object convert(Object src, Field srcField, Field dstField) {
+    public Object convert(Object src, Field srcField, Field dstField) throws ObjectConversionFailedException {
         return convert(src, srcField.getType(), dstField.getType());
     }
 

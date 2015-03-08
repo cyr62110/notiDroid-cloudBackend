@@ -3,8 +3,6 @@ package fr.cvlaminck.remapper.api.converters.strategies;
 import fr.cvlaminck.remapper.api.converters.ObjectConverter;
 import fr.cvlaminck.remapper.api.converters.containers.ObjectConvertersContainer;
 
-import java.lang.reflect.Field;
-
 /**
  * TODO
  */

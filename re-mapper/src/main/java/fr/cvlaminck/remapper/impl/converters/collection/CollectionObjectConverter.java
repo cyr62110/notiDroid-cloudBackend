@@ -3,15 +3,15 @@ package fr.cvlaminck.remapper.impl.converters.collection;
 import fr.cvlaminck.remapper.api.converters.ObjectConverter;
 import fr.cvlaminck.remapper.api.converters.containers.ObjectConvertersContainer;
 import fr.cvlaminck.remapper.api.converters.strategies.ObjectConverterSelectionStrategy;
-import fr.cvlaminck.remapper.api.exceptions.runtime.ObjectConversionFailedException;
+import fr.cvlaminck.remapper.api.exceptions.ObjectConversionFailedException;
+import fr.cvlaminck.remapper.impl.converters.collection.generic.ContentTypeDetectionStrategy;
+import fr.cvlaminck.remapper.impl.converters.collection.generic.FieldBasedContentTypeDetectionStrategy;
 import fr.cvlaminck.remapper.impl.converters.strategies.CISISCObjectConverterSelectionStrategy;
 import org.apache.commons.lang3.reflect.ConstructorUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
@@ -23,13 +23,24 @@ public class CollectionObjectConverter
 
     private ObjectConverterSelectionStrategy selectionStrategy = null;
 
+    private ContentTypeDetectionStrategy contentTypeDetectionStrategy = null;
+
     public CollectionObjectConverter(ObjectConvertersContainer container) {
         this(container, new CISISCObjectConverterSelectionStrategy());
     }
 
     public CollectionObjectConverter(ObjectConvertersContainer container, ObjectConverterSelectionStrategy selectionStrategy) {
+        this(container, selectionStrategy, new FieldBasedContentTypeDetectionStrategy());
+    }
+
+    public CollectionObjectConverter(ObjectConvertersContainer container, ContentTypeDetectionStrategy contentTypeDetectionStrategy) {
+        this(container, new CISISCObjectConverterSelectionStrategy(), contentTypeDetectionStrategy);
+    }
+
+    public CollectionObjectConverter(ObjectConvertersContainer container, ObjectConverterSelectionStrategy selectionStrategy, ContentTypeDetectionStrategy contentTypeDetectionStrategy) {
         this.container = container;
         this.selectionStrategy = selectionStrategy;
+        this.contentTypeDetectionStrategy = contentTypeDetectionStrategy;
     }
 
     @Override
@@ -49,39 +60,62 @@ public class CollectionObjectConverter
     }
 
     @Override
-    public boolean supports(Field srcField, Field dstField) {
-        //Test if the generic type in the dst is assignable from the one in the source
-        return false; //FIXME Implements the logic here
-    }
-
-    @Override
-    public Object convert(Object oSrc, Class<?> srcType, Class<?> dstType) {
-        Collection<Object> dest = null;
+    public Object convert(Object oSrc, Class<?> srcType, Class<?> dstType) throws ObjectConversionFailedException {
+        Collection<Object> src = (Collection<Object>) oSrc;
+        Collection<Object> dst = null;
         try {
-            Collection<Object> src = (Collection<Object>) oSrc;
-            dest = instantiateNewCollection(src);
-            convertObjectsInSource(src, dest);
-        } catch (NullPointerException npe) {
-            throw new ObjectConversionFailedException(this, oSrc, "No public default constructor");
+            dst = instantiateNewCollection(src);
         } catch (Exception e) {
             throw new ObjectConversionFailedException(this, oSrc, e);
         }
-        return dest;
+        if (dst == null) {
+            throw new ObjectConversionFailedException(this, oSrc, "No public default constructor");
+        }
+        return convert(src, null, dst, null);
     }
 
     @Override
-    public Object convert(Object src, Field srcField, Field dstField) {
-        return null;
+    public Object convert(Object oSrc, Field srcField, Field dstField) throws ObjectConversionFailedException {
+        Collection<Object> src = (Collection<Object>) oSrc;
+        Collection<Object> dst = null;
+        try {
+            dst = instantiateNewCollection(src);
+        } catch (Exception e) {
+            throw new ObjectConversionFailedException(this, oSrc, e);
+        }
+        if (dst == null) {
+            throw new ObjectConversionFailedException(this, oSrc, "No public default constructor");
+        }
+        return convert(src, srcField, dst, dstField);
+    }
+
+    private Object convert(Collection<Object> src, Field srcField, Collection<Object> dst, Field dstField) throws ObjectConversionFailedException {
+        Class<?> srcContentType = null;
+        Class<?> dstContentType = null;
+        if (srcField != null && contentTypeDetectionStrategy.canRetrieveContentTypeFrom(srcField)) {
+            srcContentType = contentTypeDetectionStrategy.getContentType(srcField);
+        } else if (contentTypeDetectionStrategy.canRetrieveContentTypeFrom(src)) {
+            srcContentType = contentTypeDetectionStrategy.getContentType(src);
+        }
+        if (srcContentType == null) {
+            throw new ObjectConversionFailedException(this, src, "Cannot detect content type of the source collection using '" + contentTypeDetectionStrategy.getClass().getSimpleName() + "' strategy");
+        }
+        if (dstField != null && contentTypeDetectionStrategy.canRetrieveContentTypeFrom(dstField)) {
+            dstContentType = contentTypeDetectionStrategy.getContentType(dstField);
+        } else {
+            dstContentType = srcContentType;
+        }
+        convertObjectsInSource(src, srcContentType, dst, dstContentType);
+        return dst;
     }
 
     private Collection<Object> instantiateNewCollection(Collection<Object> src) throws IllegalAccessException, InstantiationException, InvocationTargetException {
-        Collection<Object> dest = null;
         //First, we try to find a constructor using capacity to reduce the number of memory allocation
-        dest = instantiateNewCollectionUsingCapacity(src);
-        if (dest == null) {
-            dest = instantiateNewCollectionUsingDefaultConstructor(src);
+        Collection<Object> dst = instantiateNewCollectionUsingCapacity(src);
+        if (dst == null) {
+            dst = instantiateNewCollectionUsingDefaultConstructor(src);
         }
-        return dest;
+        return dst;
     }
 
     private Collection<Object> instantiateNewCollectionUsingCapacity(Collection<Object> src) throws IllegalAccessException, InvocationTargetException, InstantiationException {
@@ -101,21 +135,16 @@ public class CollectionObjectConverter
         }
     }
 
-    private void convertObjectsInSource(Collection<Object> src, Collection<Object> dest) {
-        if (src.isEmpty())
+    private void convertObjectsInSource(Collection<Object> src, Class<?> srcContentType, Collection<Object> dst, Class<?> dstContentType) throws ObjectConversionFailedException {
+        if (src.isEmpty()) {
             return;
-        Map<Class<?>, ObjectConverter> converters = new HashMap<Class<?>, ObjectConverter>();
+        }
+        ObjectConverter converter = selectionStrategy.getConverterFrom(container, srcContentType, dstContentType);
+        if (converter == null) {
+            throw new ObjectConversionFailedException(this, src, "No converter available to convert '" + srcContentType.getSimpleName() + "' into '" + dstContentType.getSimpleName() + "'");
+        }
         for (Object o : src) {
-            ObjectConverter converter = converters.get(o.getClass());
-            if (converter == null) {
-                converter = selectionStrategy.getConverterFrom(container, o.getClass(), o.getClass());
-                converters.put(o.getClass(), converter);
-            }
-            if (converter != null) {
-                dest.add(converter.convert(o, o.getClass(), o.getClass()));
-            } else {
-                //TODO : What should we do, ignore the value or returns an empty collection ?
-            }
+            dst.add(converter.convert(o, srcContentType, dstContentType));
         }
     }
 

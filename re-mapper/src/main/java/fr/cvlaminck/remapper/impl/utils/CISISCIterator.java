@@ -14,7 +14,7 @@ import java.util.Iterator;
  * - Then we repeat these pattern on super classes until we reach Object.
  */
 public class CISISCIterator<T extends Type>
-    implements Iterator<T> {
+        implements Iterator<T> {
 
     private Deque<T> types;
     private TypeInformationAccessor<T> typeInformationAccessor;
@@ -37,12 +37,12 @@ public class CISISCIterator<T extends Type>
     @Override
     public T next() {
         T nextType = types.removeFirst();
-        if(nextType != Object.class) {
+        if (nextType != Object.class) {
             T nextTypeSuperclass = typeInformationAccessor.getSuperclass(nextType);
-            if(nextTypeSuperclass != null) {
+            if (nextTypeSuperclass != null) {
                 types.addFirst(typeInformationAccessor.getSuperclass(nextType));
             }
-            for(T nextTypeInterface : typeInformationAccessor.getInterfaces(nextType)) {
+            for (T nextTypeInterface : typeInformationAccessor.getInterfaces(nextType)) {
                 types.addFirst(nextTypeInterface);
             }
         }
@@ -58,7 +58,7 @@ public class CISISCIterator<T extends Type>
     }
 
     private static class ClassTypeInformationAccessor
-        implements TypeInformationAccessor<Class<?>> {
+            implements TypeInformationAccessor<Class<?>> {
 
         @Override
         public Class<?> getSuperclass(Class<?> type) {

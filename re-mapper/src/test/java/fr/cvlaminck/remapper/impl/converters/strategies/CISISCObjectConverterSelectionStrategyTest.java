@@ -5,10 +5,7 @@ import fr.cvlaminck.remapper.api.converters.containers.ObjectConvertersContainer
 import fr.cvlaminck.remapper.api.converters.strategies.ObjectConverterSelectionStrategy;
 import org.junit.Test;
 
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -19,17 +16,22 @@ public class CISISCObjectConverterSelectionStrategyTest {
     @Test
     public void testGetConverterFromSelectClassFirst() throws Exception {
         ObjectConverter arrayListConverter = mock(ObjectConverter.class);
-        ObjectConverter abstractListConverter = mock(ObjectConverter.class);
+        when(arrayListConverter.supports(ArrayList.class, Object.class)).thenReturn(true);
         ObjectConverter listConverter = mock(ObjectConverter.class);
+        when(listConverter.supports(ArrayList.class, Object.class)).thenReturn(true);
         ObjectConverter collectionConverter = mock(ObjectConverter.class);
+        when(collectionConverter.supports(ArrayList.class, Object.class)).thenReturn(true);
+        ObjectConverter abstractListConverter = mock(ObjectConverter.class);
+        when(abstractListConverter.supports(ArrayList.class, Object.class)).thenReturn(true);
         ObjectConverter objectConverter = mock(ObjectConverter.class);
+        when(objectConverter.supports(ArrayList.class, Object.class)).thenReturn(true);
 
         ObjectConvertersContainer container = mock(ObjectConvertersContainer.class);
-        when(container.getConverterFor(ArrayList.class, Object.class)).thenReturn(arrayListConverter);
-        when(container.getConverterFor(List.class, Object.class)).thenReturn(listConverter);
-        when(container.getConverterFor(Collection.class, Object.class)).thenReturn(collectionConverter);
-        when(container.getConverterFor(AbstractList.class, Object.class)).thenReturn(abstractListConverter);
-        when(container.getConverterFor(Object.class, Object.class)).thenReturn(objectConverter);
+        when(container.getConverters(ArrayList.class)).thenReturn(Collections.singletonList(arrayListConverter));
+        when(container.getConverters(List.class)).thenReturn(Collections.singletonList(listConverter));
+        when(container.getConverters(Collection.class)).thenReturn(Collections.singletonList(collectionConverter));
+        when(container.getConverters(AbstractList.class)).thenReturn(Collections.singletonList(abstractListConverter));
+        when(container.getConverters(Object.class)).thenReturn(Collections.singletonList(objectConverter));
 
         ObjectConverterSelectionStrategy selectionStrategy = new CISISCObjectConverterSelectionStrategy();
 
@@ -39,15 +41,19 @@ public class CISISCObjectConverterSelectionStrategyTest {
     @Test
     public void testGetConverterFromSelectInterfaceSecond() throws Exception {
         ObjectConverter listConverter = mock(ObjectConverter.class);
+        when(listConverter.supports(ArrayList.class, Object.class)).thenReturn(true);
         ObjectConverter collectionConverter = mock(ObjectConverter.class);
+        when(collectionConverter.supports(ArrayList.class, Object.class)).thenReturn(true);
         ObjectConverter abstractListConverter = mock(ObjectConverter.class);
+        when(abstractListConverter.supports(ArrayList.class, Object.class)).thenReturn(true);
         ObjectConverter objectConverter = mock(ObjectConverter.class);
+        when(objectConverter.supports(ArrayList.class, Object.class)).thenReturn(true);
 
         ObjectConvertersContainer container = mock(ObjectConvertersContainer.class);
-        when(container.getConverterFor(List.class, Object.class)).thenReturn(listConverter);
-        when(container.getConverterFor(Collection.class, Object.class)).thenReturn(collectionConverter);
-        when(container.getConverterFor(AbstractList.class, Object.class)).thenReturn(abstractListConverter);
-        when(container.getConverterFor(Object.class, Object.class)).thenReturn(objectConverter);
+        when(container.getConverters(List.class)).thenReturn(Collections.singletonList(listConverter));
+        when(container.getConverters(Collection.class)).thenReturn(Collections.singletonList(collectionConverter));
+        when(container.getConverters(AbstractList.class)).thenReturn(Collections.singletonList(abstractListConverter));
+        when(container.getConverters(Object.class)).thenReturn(Collections.singletonList(objectConverter));
 
         ObjectConverterSelectionStrategy selectionStrategy = new CISISCObjectConverterSelectionStrategy();
 
@@ -57,13 +63,16 @@ public class CISISCObjectConverterSelectionStrategyTest {
     @Test
     public void testGetConverterFromSelectSuperInterfaceThird() throws Exception {
         ObjectConverter collectionConverter = mock(ObjectConverter.class);
+        when(collectionConverter.supports(ArrayList.class, Object.class)).thenReturn(true);
         ObjectConverter abstractListConverter = mock(ObjectConverter.class);
+        when(abstractListConverter.supports(ArrayList.class, Object.class)).thenReturn(true);
         ObjectConverter objectConverter = mock(ObjectConverter.class);
+        when(objectConverter.supports(ArrayList.class, Object.class)).thenReturn(true);
 
         ObjectConvertersContainer container = mock(ObjectConvertersContainer.class);
-        when(container.getConverterFor(Collection.class, Object.class)).thenReturn(collectionConverter);
-        when(container.getConverterFor(AbstractList.class, Object.class)).thenReturn(abstractListConverter);
-        when(container.getConverterFor(Object.class, Object.class)).thenReturn(objectConverter);
+        when(container.getConverters(Collection.class)).thenReturn(Collections.singletonList(collectionConverter));
+        when(container.getConverters(AbstractList.class)).thenReturn(Collections.singletonList(abstractListConverter));
+        when(container.getConverters(Object.class)).thenReturn(Collections.singletonList(objectConverter));
 
         ObjectConverterSelectionStrategy selectionStrategy = new CISISCObjectConverterSelectionStrategy();
 
@@ -73,11 +82,13 @@ public class CISISCObjectConverterSelectionStrategyTest {
     @Test
     public void testGetConverterFromSelectSuperClassFinally() throws Exception {
         ObjectConverter abstractListConverter = mock(ObjectConverter.class);
+        when(abstractListConverter.supports(ArrayList.class, Object.class)).thenReturn(true);
         ObjectConverter objectConverter = mock(ObjectConverter.class);
+        when(objectConverter.supports(ArrayList.class, Object.class)).thenReturn(true);
 
         ObjectConvertersContainer container = mock(ObjectConvertersContainer.class);
-        when(container.getConverterFor(AbstractList.class, Object.class)).thenReturn(abstractListConverter);
-        when(container.getConverterFor(Object.class, Object.class)).thenReturn(objectConverter);
+        when(container.getConverters(AbstractList.class)).thenReturn(Collections.singletonList(abstractListConverter));
+        when(container.getConverters(Object.class)).thenReturn(Collections.singletonList(objectConverter));
 
         ObjectConverterSelectionStrategy selectionStrategy = new CISISCObjectConverterSelectionStrategy();
 

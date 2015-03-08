@@ -1,5 +1,7 @@
 package fr.cvlaminck.remapper.api.converters;
 
+import fr.cvlaminck.remapper.api.exceptions.ObjectConversionFailedException;
+
 import java.lang.reflect.Field;
 
 /**
@@ -26,10 +28,10 @@ public interface ObjectConverter {
      */
     public boolean supports(Class<?> srcType, Class<?> dstType);
 
-    public boolean supports(Field srcField, Field dstField);
+    public Object convert(Object src, Class<?> srcType, Class<?> dstType) throws ObjectConversionFailedException;
 
-    public Object convert(Object src, Class<?> srcType, Class<?> dstType);
+    public Object convert(Object src, Field srcField, Field dstField) throws ObjectConversionFailedException;
 
-    public Object convert(Object src, Field srcField, Field dstField);
+    ;
 
 }

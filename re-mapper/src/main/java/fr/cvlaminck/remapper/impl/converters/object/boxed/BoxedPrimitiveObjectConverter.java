@@ -1,5 +1,6 @@
 package fr.cvlaminck.remapper.impl.converters.object.boxed;
 
+import fr.cvlaminck.remapper.api.exceptions.ObjectConversionFailedException;
 import fr.cvlaminck.remapper.impl.converters.BasicObjectConverter;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -69,11 +70,11 @@ public class BoxedPrimitiveObjectConverter
     }
 
     @Override
-    public Object convert(Object src, Class<?> srcType, Class<?> dstType) {
+    public Object convert(Object src, Class<?> srcType, Class<?> dstType) throws ObjectConversionFailedException {
         try {
             return valueOfMethod.invoke(getSourceType(), src);
         } catch (Exception e) {
-            throw new IllegalStateException("Cannot deep copy value '" + src.toString() + "'", e);
+            throw new ObjectConversionFailedException(this, src, e);
         }
     }
 

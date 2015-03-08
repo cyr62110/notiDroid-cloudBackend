@@ -1,6 +1,7 @@
 package fr.cvlaminck.remapper.impl.converters.collection;
 
 import fr.cvlaminck.remapper.impl.converters.collection.CollectionObjectConverter;
+import fr.cvlaminck.remapper.impl.converters.collection.generic.FirstElementContentTypeDetectionStrategy;
 import fr.cvlaminck.remapper.impl.converters.containers.DefaultObjectConvertersContainer;
 import org.junit.Test;
 
@@ -11,20 +12,6 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 public class CollectionObjectConverterTest {
-
-    @Test
-    public void testGetCollectionType() {
-        Collection<String> collection = new ArrayList<String>();
-
-        Type[] genericInterfaces = collection.getClass().getGenericInterfaces();
-        for(Type genericInterface : genericInterfaces) {
-            if(genericInterface instanceof ParameterizedType) {
-                System.out.println(((ParameterizedType) genericInterface).getActualTypeArguments().length);
-                if(((ParameterizedType) genericInterface).getActualTypeArguments().length > 0)
-                    System.out.println(((ParameterizedType) genericInterface).getActualTypeArguments()[0].getTypeName());
-            }
-        }
-    }
 
     @Test
     public void testGetSourceType() throws Exception {
@@ -40,6 +27,7 @@ public class CollectionObjectConverterTest {
         assertTrue(converter.supports(Collection.class, Collection.class));
         assertTrue(converter.supports(List.class, Collection.class));
         assertTrue(converter.supports(ArrayList.class, List.class));
+        assertTrue(converter.supports(ArrayList.class, Collection.class));
 
         assertFalse(converter.supports(String.class, Collection.class));
         assertFalse(converter.supports(Collection.class, Object.class));
@@ -49,7 +37,7 @@ public class CollectionObjectConverterTest {
 
     @Test
     public void testConvert() throws Exception {
-        CollectionObjectConverter converter = new CollectionObjectConverter(new DefaultObjectConvertersContainer());
+        CollectionObjectConverter converter = new CollectionObjectConverter(new DefaultObjectConvertersContainer(), new FirstElementContentTypeDetectionStrategy());
         List<String> numbers = new ArrayList<String>();
         for(int i = 0; i < 10; i++)
             numbers.add(Integer.toString(i));

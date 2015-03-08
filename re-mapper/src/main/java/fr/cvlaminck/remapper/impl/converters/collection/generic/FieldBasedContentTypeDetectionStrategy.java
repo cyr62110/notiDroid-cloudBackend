@@ -14,14 +14,17 @@ import java.util.Iterator;
 public class FieldBasedContentTypeDetectionStrategy
         implements ContentTypeDetectionStrategy {
 
-    private Field field;
-
-    public FieldBasedContentTypeDetectionStrategy(Field field) {
-        this.field = field;
+    @Override
+    public boolean canRetrieveContentTypeFrom(Object object) {
+        return object instanceof Field;
     }
 
     @Override
-    public Class<?> getContentType() {
+    public Class<?> getContentType(Object oField) {
+        if (!(oField instanceof Field)) {
+            return null; //FIXME handle this error with a proper exception
+        }
+        Field field = (Field) oField;
         Class<?> contentType = null;
         Iterator<Type> iterator = new CISISCIterator<Type>(field.getGenericType(), new GenericTypeInformationAccessor());
         while (contentType == null && iterator.hasNext()) {
@@ -39,16 +42,16 @@ public class FieldBasedContentTypeDetectionStrategy
     }
 
     private static class GenericTypeInformationAccessor
-        implements CISISCIterator.TypeInformationAccessor<Type> {
+            implements CISISCIterator.TypeInformationAccessor<Type> {
 
         @Override
         public Type getSuperclass(Type type) {
-            if(type instanceof ParameterizedType && ((ParameterizedType) type).getRawType() instanceof Class) {
+            if (type instanceof ParameterizedType && ((ParameterizedType) type).getRawType() instanceof Class) {
                 return ((Class) ((ParameterizedType) type).getRawType()).getGenericSuperclass();
-            } else if(type instanceof TypeVariable) {
+            } else if (type instanceof TypeVariable) {
                 //FIXME TypeVariable are not support by this version. Should be implemented soon.
                 return null;
-            } else if(type instanceof Class) {
+            } else if (type instanceof Class) {
                 return ((Class) type).getGenericSuperclass();
             }
             return null;
@@ -56,12 +59,12 @@ public class FieldBasedContentTypeDetectionStrategy
 
         @Override
         public Type[] getInterfaces(Type type) {
-            if(type instanceof ParameterizedType && ((ParameterizedType) type).getRawType() instanceof Class) {
+            if (type instanceof ParameterizedType && ((ParameterizedType) type).getRawType() instanceof Class) {
                 return ((Class) ((ParameterizedType) type).getRawType()).getGenericInterfaces();
-            } else if(type instanceof TypeVariable) {
+            } else if (type instanceof TypeVariable) {
                 //FIXME TypeVariable are not support by this version. Should be implemented soon.
                 return null;
-            } else if(type instanceof Class) {
+            } else if (type instanceof Class) {
                 return ((Class) type).getGenericInterfaces();
             }
             return null;

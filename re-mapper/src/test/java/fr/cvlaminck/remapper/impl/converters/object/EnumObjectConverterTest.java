@@ -14,7 +14,7 @@ public class EnumObjectConverterTest {
     }
 
     @Test
-    public void testConvert() {
+    public void testConvert() throws Exception {
         EnumObjectConverter converter = new EnumObjectConverter();
 
         assertEquals(SimpleEnum.A, converter.convert(SimpleEnum.A, SimpleEnum.class, SimpleEnum.class));

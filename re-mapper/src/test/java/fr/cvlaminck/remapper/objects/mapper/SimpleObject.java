@@ -2,6 +2,8 @@ package fr.cvlaminck.remapper.objects.mapper;
 
 import org.junit.Assert;
 
+import java.util.ArrayList;
+
 public class SimpleObject {
 
     public byte simpleByte;
@@ -34,6 +36,8 @@ public class SimpleObject {
 
     public String simpleString;
 
+    public ArrayList<String> simpleArrayList;
+
     public static SimpleObject build() {
         SimpleObject o1 = new SimpleObject();
         o1.simpleByte = 1;
@@ -52,6 +56,8 @@ public class SimpleObject {
         o1.simpleBoxedDouble = 17d;
         o1.simpleString  = "string";
 
+        o1.simpleArrayList = new ArrayList<String>();
+        o1.simpleArrayList.add("string");
         return o1;
     }
 
@@ -73,5 +79,9 @@ public class SimpleObject {
         Assert.assertEquals(o1.simpleBoxedDouble, o2.simpleBoxedDouble);
 
         Assert.assertEquals(o1.simpleString, o2.simpleString);
+
+        Assert.assertNotNull(o2.simpleArrayList);
+        Assert.assertEquals(o1.simpleArrayList.size(), o2.simpleArrayList.size());
+        Assert.assertEquals(o1.simpleArrayList.get(0), o2.simpleArrayList.get(0));
     }
 }

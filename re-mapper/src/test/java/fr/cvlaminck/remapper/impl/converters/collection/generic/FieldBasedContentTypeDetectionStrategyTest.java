@@ -1,5 +1,6 @@
 package fr.cvlaminck.remapper.impl.converters.collection.generic;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
@@ -17,49 +18,41 @@ public class FieldBasedContentTypeDetectionStrategyTest {
     private CollectionOfStringImplementation collectionOfStringImplementation = new CollectionOfStringImplementation();
     private CustomCollectionImplementation customCollectionImplementation = new CustomCollectionImplementation();
 
+    private FieldBasedContentTypeDetectionStrategy contentTypeDetectionStrategy = null;
+
+    @Before
+    public void setUp() throws Exception {
+        contentTypeDetectionStrategy = new FieldBasedContentTypeDetectionStrategy();
+    }
+
     @Test
     public void testGetContentTypeWithTypeParametrizedOnField() throws Exception {
         Field field = getClass().getDeclaredField("arrayListOfString");
-
-        FieldBasedContentTypeDetectionStrategy contentTypeDetectionStrategy = new FieldBasedContentTypeDetectionStrategy(field);
-
-        assertEquals(String.class, contentTypeDetectionStrategy.getContentType());
+        assertEquals(String.class, contentTypeDetectionStrategy.getContentType(field));
     }
 
     @Test
     public void testGetContentTypeWithTypeParametrizedOnClass() throws Exception {
         Field field = getClass().getDeclaredField("customArrayList");
-
-        FieldBasedContentTypeDetectionStrategy contentTypeDetectionStrategy = new FieldBasedContentTypeDetectionStrategy(field);
-
-        assertEquals(String.class, contentTypeDetectionStrategy.getContentType());
+        assertEquals(String.class, contentTypeDetectionStrategy.getContentType(field));
     }
 
     @Test
     public void testGetContentTypeWithTypeParametrizedOnInheritedClass() throws Exception {
         Field field = getClass().getDeclaredField("superclassCustomArrayList");
-
-        FieldBasedContentTypeDetectionStrategy contentTypeDetectionStrategy = new FieldBasedContentTypeDetectionStrategy(field);
-
-        assertEquals(String.class, contentTypeDetectionStrategy.getContentType());
+        assertEquals(String.class, contentTypeDetectionStrategy.getContentType(field));
     }
 
     @Test
     public void testGetContentTypeWithTypeParametrizedOnInterface() throws Exception {
         Field field = getClass().getDeclaredField("collectionOfStringImplementation");
-
-        FieldBasedContentTypeDetectionStrategy contentTypeDetectionStrategy = new FieldBasedContentTypeDetectionStrategy(field);
-
-        assertEquals(String.class, contentTypeDetectionStrategy.getContentType());
+        assertEquals(String.class, contentTypeDetectionStrategy.getContentType(field));
     }
 
     @Test
     public void testGetContentTypeWithTypeParametrizedOnSuperInterface() throws Exception {
         Field field = getClass().getDeclaredField("customCollectionImplementation");
-
-        FieldBasedContentTypeDetectionStrategy contentTypeDetectionStrategy = new FieldBasedContentTypeDetectionStrategy(field);
-
-        assertEquals(String.class, contentTypeDetectionStrategy.getContentType());
+        assertEquals(String.class, contentTypeDetectionStrategy.getContentType(field));
     }
 
     private static class CustomArrayList extends ArrayList<String> {

@@ -10,10 +10,7 @@ import fr.cvlaminck.remapper.impl.converters.object.StringObjectConverter;
 import fr.cvlaminck.remapper.impl.converters.object.boxed.BoxedPrimitiveObjectConverters;
 import fr.cvlaminck.remapper.impl.converters.primitive.PrimitiveObjectConverters;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Default implementation of the FieldConvertersContainer.
@@ -50,20 +47,16 @@ public class DefaultObjectConvertersContainer
         //java.util.Date
         //TODO
         //java.util.Collection
-        addFieldConverter(new CollectionObjectConverter(this));
+        addFieldConverter(new CollectionObjectConverter(this)); //FIXME : Should not be this otherwise cannot convert List<List<>>
     }
 
     @Override
-    public ObjectConverter getConverterFor(Class<?> srcType, Class<?> dstType) {
+    public Collection<ObjectConverter> getConverters(Class<?> srcType) {
         Collection<ObjectConverter> convertersForType = fieldConverters.get(srcType);
         if (convertersForType == null) {
-            return null;
+            return Collections.emptyList();
         }
-        for (ObjectConverter objectConverter : convertersForType) {
-            if (objectConverter.supports(srcType, dstType))
-                return objectConverter;
-        }
-        return null;
+        return convertersForType;
     }
 
     /**

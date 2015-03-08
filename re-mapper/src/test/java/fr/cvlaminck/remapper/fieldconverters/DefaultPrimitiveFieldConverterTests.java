@@ -1,11 +1,7 @@
 package fr.cvlaminck.remapper.fieldconverters;
 
 import fr.cvlaminck.remapper.impl.converters.primitive.PrimitiveObjectConverter;
-import fr.cvlaminck.remapper.objects.fieldconverters.ObjectFullOfPrimitiveFields;
-import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Test;
-
-import java.lang.reflect.Field;
 
 import static org.junit.Assert.assertEquals;
 

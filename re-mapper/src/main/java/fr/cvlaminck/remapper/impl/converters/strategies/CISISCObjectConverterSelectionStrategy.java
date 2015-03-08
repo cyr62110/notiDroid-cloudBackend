@@ -20,16 +20,19 @@ import java.util.Iterator;
  * - Object
  */
 public class CISISCObjectConverterSelectionStrategy
+        extends AbstractObjectConverterSelectionStrategy
         implements ObjectConverterSelectionStrategy {
 
     @Override
-    public ObjectConverter getConverterFrom(ObjectConvertersContainer container, Class<?> srcType, Class<?> dstType) {
+    public ObjectConverter getConverterFrom(ObjectConvertersContainer container, Class<?> originalSrcType, Class<?> originalDstType) {
         ObjectConverter objectConverter = null;
-        Iterator<Class<?>> iterator = CISISCIterator.forClass(srcType);
+        Iterator<Class<?>> iterator = CISISCIterator.forClass(originalSrcType);
         while (iterator.hasNext() && objectConverter == null) {
-            objectConverter = container.getConverterFor(iterator.next(), dstType);
+            Class<?> srcType = iterator.next();
+            objectConverter = getConverterFor(container, srcType, originalSrcType, originalDstType);
         }
         return objectConverter;
     }
+
 
 }
